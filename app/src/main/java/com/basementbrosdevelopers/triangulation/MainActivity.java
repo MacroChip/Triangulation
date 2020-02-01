@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createSquare(LinearLayout linearLayout, Square square) {
-        createRotatedTriangle(linearLayout, R.drawable.ic_triangleorange);
+        ImageView triangle = createTriangle(linearLayout, R.drawable.ic_triangleorange);
+        triangle.setRotation(180f);
         createTriangle(linearLayout, R.drawable.ic_triangleorange);
     }
 
@@ -72,12 +73,6 @@ public class MainActivity extends AppCompatActivity {
         ImageView triangle = new ImageView(this);
         triangle.setImageResource(drawable);
         parentView.addView(triangle);
-        return triangle;
-    }
-
-    private ImageView createRotatedTriangle(LinearLayout linearLayout, int drawable) {
-        ImageView triangle = createTriangle(linearLayout, drawable);
-        triangle.setRotation(180f);
         return triangle;
     }
 }
