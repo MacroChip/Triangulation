@@ -19,6 +19,14 @@ public class LocationMatrix {
         return new Square(ranValA, ranValB);
     }
 
+    public int getWidth() {
+        return matrix[0].length;
+    }
+
+    public int getHeight() {
+        return matrix.length;
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder(" ").append("\n");
