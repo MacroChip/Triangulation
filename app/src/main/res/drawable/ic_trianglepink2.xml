@@ -5,8 +5,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <path
         android:fillAlpha="1"
-        android:fillColor="#ffb900"
-        android:pathData="m1.7727,46.5239 l21.7881,-22.369 21.8288,-22.3261 -0.0681,22.5146 -0.1501,22.5563 -21.72,-0.1456z"
+        android:fillColor="#ffd5d5"
+        android:pathData="m1.759,46.813 l21.7881,-22.369 21.8288,-22.3261 -0.0681,22.5146 -0.1501,22.5563 -21.72,-0.1456z"
         android:strokeAlpha="1"
         android:strokeColor="#000000"
         android:strokeWidth="5.046" />

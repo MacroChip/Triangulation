@@ -5,9 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <path
         android:fillAlpha="1"
-        android:fillColor="#ffb900"
-        android:pathData="m1.7727,46.5239 l21.7881,-22.369 21.8288,-22.3261 -0.0681,22.5146 -0.1501,22.5563 -21.72,-0.1456z"
+        android:fillColor="#de6161"
+        android:pathData="M2.3078,46.1498 L24.0959,23.7808 45.9247,1.4547 45.8565,23.9692 45.7064,46.5256 23.9864,46.38Z"
         android:strokeAlpha="1"
         android:strokeColor="#000000"
-        android:strokeWidth="5.046" />
+        android:strokeWidth="1.68175066" />
 </vector>
