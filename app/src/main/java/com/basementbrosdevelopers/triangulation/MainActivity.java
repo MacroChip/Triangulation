@@ -11,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private ViewGroup mainView;
-
+    private Scoreboard allScores = new Scoreboard();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LocationMatrix locationMatrix = new LocationMatrix();
+        LocationMatrix locationMatrix = new LocationMatrix(allScores);
         Log.d(getClass().toString(), locationMatrix.toString());
         mainView = findViewById(R.id.main);
         Square[][] matrix = locationMatrix.matrix;

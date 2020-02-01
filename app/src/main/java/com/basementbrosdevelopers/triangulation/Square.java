@@ -2,7 +2,7 @@ package com.basementbrosdevelopers.triangulation;
 
 public class Square {
 
-    public static final double HIGHEST_TRIANGLE_VALUE = 5.27;
+    private static final double HIGHEST_TRIANGLE_VALUE = 5.27;
     private int leftTriangle;
     private int rightTriangle;
 
