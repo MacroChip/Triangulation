@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewGroup mainView;
     private Scoreboard allScores = new Scoreboard();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
