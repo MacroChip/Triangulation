@@ -14,8 +14,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         LocationMatrix.main(null);
         ViewGroup mainView = findViewById(R.id.main);
+        createTriangle(mainView, R.drawable.ic_triangleblue1);
+        createTriangle(mainView, R.drawable.ic_triangleblue2);
+        createTriangle(mainView, R.drawable.ic_trianglegreen1);
+        createTriangle(mainView, R.drawable.ic_trianglegreen2);
+        createTriangle(mainView, R.drawable.ic_trianglemagenta);
         createTriangle(mainView, R.drawable.ic_triangleorange);
-        createTriangle(mainView, R.drawable.ic_triangleorange);
+        createTriangle(mainView, R.drawable.ic_trianglepink1);
+        createTriangle(mainView, R.drawable.ic_trianglepink2);
+        createTriangle(mainView, R.drawable.ic_trianglepurple);
     }
 
     private void createTriangle(ViewGroup mainView, int drawable) {
