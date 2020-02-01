@@ -13,71 +13,80 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewGroup mainView;
     private Scoreboard allScores = new Scoreboard();
+    private LocationMatrix locationMatrix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LocationMatrix locationMatrix = new LocationMatrix(allScores);
+        locationMatrix = new LocationMatrix(allScores);
         Log.d(getClass().toString(), locationMatrix.toString());
         mainView = findViewById(R.id.main);
-        Square[][] matrix = locationMatrix.matrix;
-        for (int i = 0; i < matrix.length; i++) {
-            Square[] row = matrix[i];
+        createView();
+    }
+
+    private void createView() {
+        for (int i = 0; i < locationMatrix.matrix.length; i++) {
+            Square[] row = locationMatrix.matrix[i];
             if (i % 2 == 0) {
-                createRow(row);
+                createRow(row, i);
             } else {
-                createInvertedRow(row);
+                createInvertedRow(row, i);
             }
         }
     }
 
-    private void createRow(Square[] row) {
+    private void createRow(Square[] row, int y) {
         LinearLayout linearLayout = new LinearLayout(this);
         mainView.addView(linearLayout);
         for (int i = 0; i < row.length; i++) {
             Square square = row[i];
             if (i % 2 == 0) {
-                createSquare(linearLayout, square);
+                createSquare(linearLayout, square, y, i);
             } else {
-                createInvertedSquare(linearLayout, square);
+                createInvertedSquare(linearLayout, square, y, i);
             }
         }
     }
 
-    private void createInvertedRow(Square[] row) {
+    private void createInvertedRow(Square[] row, int y) {
         LinearLayout linearLayout = new LinearLayout(this);
         mainView.addView(linearLayout);
         for (int i = 0; i < row.length; i++) {
             Square square = row[i];
             if (i % 2 == 0) {
-                createInvertedSquare(linearLayout, square);
+                createInvertedSquare(linearLayout, square, y, i);
             } else {
-                createSquare(linearLayout, square);
+                createSquare(linearLayout, square, y, i);
             }
         }
     }
 
-    private void createSquare(LinearLayout linearLayout, Square square) {
+    private void createSquare(LinearLayout linearLayout, Square square, int y, int x) {
         FrameLayout frame = new FrameLayout(this);
-        ImageView leftTriangle = createTriangle(frame, square.getLeftTriangle());
+        ImageView leftTriangle = createTriangle(frame, square.getLeftTriangle(), y, x);
         leftTriangle.setRotation(180f);
-        createTriangle(frame, square.getRightTriangle());
+        createTriangle(frame, square.getRightTriangle(), y, x);
         linearLayout.addView(frame);
     }
 
-    private void createInvertedSquare(LinearLayout linearLayout, Square square) {
+    private void createInvertedSquare(LinearLayout linearLayout, Square square, int y, int x) {
         FrameLayout frame = new FrameLayout(this);
-        ImageView leftTriangle = createTriangle(frame, square.getLeftTriangle());
+        ImageView leftTriangle = createTriangle(frame, square.getLeftTriangle(), y, x);
         leftTriangle.setRotation(90f);
-        ImageView rightTriangle = createTriangle(frame, square.getRightTriangle());
+        ImageView rightTriangle = createTriangle(frame, square.getRightTriangle(), y, x);
         rightTriangle.setRotation(-90f);
         linearLayout.addView(frame);
     }
 
-    private ImageView createTriangle(ViewGroup parentView, int triangleValue) {
+    private ImageView createTriangle(ViewGroup parentView, int triangleValue, int y, int x) {
         ImageView triangle = new ImageView(this);
         triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
+        triangle.setOnClickListener(v -> {
+            locationMatrix.matrix[y][x].swap();
+            mainView.removeAllViews();
+            createView();
+        });
         parentView.addView(triangle);
         return triangle;
     }
