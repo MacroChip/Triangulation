@@ -2,7 +2,7 @@ package com.basementbrosdevelopers.triangulation;
 
 public class LocationMatrix {
 
-    private Square[][] matrix;
+    public final Square[][] matrix;
 
     public LocationMatrix() {
         matrix = new Square[][]{
@@ -17,14 +17,6 @@ public class LocationMatrix {
         int ranValA = (int) (4 * Math.random());
         int ranValB = (int) (4 * Math.random());
         return new Square(ranValA, ranValB);
-    }
-
-    public int getWidth() {
-        return matrix[0].length;
-    }
-
-    public int getHeight() {
-        return matrix.length;
     }
 
     @Override
