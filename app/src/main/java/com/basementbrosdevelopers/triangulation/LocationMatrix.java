@@ -3,14 +3,16 @@ package com.basementbrosdevelopers.triangulation;
 public class LocationMatrix {
 
     public final Square[][] matrix;
+    public Scoreboard scoreboard;
 
-    public LocationMatrix() {
+    public LocationMatrix(Scoreboard scoreboard) {
         matrix = new Square[][]{
                 {new Square(), new Square(), new Square(), new Square()},
                 {new Square(), new Square(), new Square(), new Square()},
                 {new Square(), new Square(), new Square(), new Square()},
                 {new Square(), new Square(), new Square(), new Square()}
         };
+        this.scoreboard = scoreboard;
     }
 
     @Override
@@ -32,6 +34,7 @@ public class LocationMatrix {
         int xy = matrix[j + 1][i + 1].getLeftTriangle();
         if (o == x && o == y && o == xy) {
             replaceRightRhombus(j, i);
+            scoreboard.add();
             return true;
         } else {
             return false;
@@ -45,6 +48,7 @@ public class LocationMatrix {
         int xy = matrix[j - 1][i - 1].getRightTriangle();
         if (o == x && o == y && o == xy) {
             replaceLeftRhombus(j, i);
+            scoreboard.add();
             return true;
         } else {
             return false;
