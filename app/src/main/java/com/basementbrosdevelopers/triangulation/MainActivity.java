@@ -3,6 +3,7 @@ package com.basementbrosdevelopers.triangulation;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -57,16 +58,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createSquare(LinearLayout linearLayout, Square square) {
-        ImageView triangle = createTriangle(linearLayout, square.getLeftTriangle());
-        triangle.setRotation(180f);
-        createTriangle(linearLayout, square.getRightTriangle());
+        FrameLayout frame = new FrameLayout(this);
+        ImageView leftTriangle = createTriangle(frame, square.getLeftTriangle());
+        leftTriangle.setRotation(180f);
+        createTriangle(frame, square.getRightTriangle());
+        linearLayout.addView(frame);
     }
 
     private void createInvertedSquare(LinearLayout linearLayout, Square square) {
-        ImageView triangle = createTriangle(linearLayout, square.getLeftTriangle());
-        triangle.setRotation(90f);
-        ImageView rotatedTriangle = createTriangle(linearLayout, square.getRightTriangle());
-        rotatedTriangle.setRotation(-90f);
+        FrameLayout frame = new FrameLayout(this);
+        ImageView leftTriangle = createTriangle(frame, square.getLeftTriangle());
+        leftTriangle.setRotation(90f);
+        ImageView rightTriangle = createTriangle(frame, square.getRightTriangle());
+        rightTriangle.setRotation(-90f);
+        linearLayout.addView(frame);
     }
 
     private ImageView createTriangle(ViewGroup parentView, int triangleValue) {
