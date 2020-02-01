@@ -1,11 +1,11 @@
 package com.basementbrosdevelopers.triangulation;
 
-public class Tuple {
+public class Square {
 
     private int leftTriangle;
     private int rightTriangle;
 
-    public Tuple(int leftTriangle, int rightTriangle) {
+    public Square(int leftTriangle, int rightTriangle) {
         this.leftTriangle = leftTriangle;
         this.rightTriangle = rightTriangle;
     }
@@ -18,7 +18,7 @@ public class Tuple {
         return rightTriangle;
     }
 
-    public void squareSwap() {
+    public void swap() {
         int leftOriginal = leftTriangle;
         leftTriangle = rightTriangle;
         rightTriangle = leftOriginal;
