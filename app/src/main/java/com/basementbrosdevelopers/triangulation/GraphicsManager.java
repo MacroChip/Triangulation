@@ -14,6 +14,7 @@ public class GraphicsManager {
         graphicsMap.put(2, R.drawable.ic_triangleorange);
         graphicsMap.put(3, R.drawable.ic_trianglepink2);
         graphicsMap.put(4, R.drawable.ic_trianglepurple);
+        graphicsMap.put(5, R.drawable.ic_trianglewild);
     }
 
     @DrawableRes

@@ -55,14 +55,14 @@ public class LocationMatrix {
         }
     }
 
-    public void replaceRightRhombus(int j, int i) {
+    private void replaceRightRhombus(int j, int i) {
         matrix[j][i].newRightTriangle();
         matrix[j][i + 1].newLeftTriangle();
         matrix[j + 1][i].newRightTriangle();
         matrix[j + 1][i + 1].newLeftTriangle();
     }
 
-    public void replaceLeftRhombus(int j, int i) {
+    private void replaceLeftRhombus(int j, int i) {
         matrix[j][i].newLeftTriangle();
         matrix[j][i - 1].newRightTriangle();
         matrix[j - 1][i].newLeftTriangle();
