@@ -14,8 +14,8 @@ public class LocationMatrix {
         };
 
         Tuple test = new Tuple(69, 420);
-        squareSwap(test);
-        Log.d("locationMatrix", test.print() + "XD");
+        test.squareSwap();
+        Log.d("locationMatrix", test.toString() + "XD");
         print2D(mat);
     }
 
@@ -33,13 +33,7 @@ public class LocationMatrix {
 
             // Loop through all elements of current row
             for (int j = 0; j < mat[i].length; j++)
-                Log.d("locationMatrix", mat[i][j].print() + "; " + i + " " + j);
+                Log.d("locationMatrix", mat[i][j].toString() + "; " + i + " " + j);
     }
 
-    public static void squareSwap(Tuple x) {
-        int leftOriginal = x.getLeftTriangle();
-        int rightOriginal = x.getRightTriangle();
-        x.setLeftTriangle(rightOriginal);
-        x.setRightTriangle(leftOriginal);
-    }
 }

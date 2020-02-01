@@ -5,9 +5,9 @@ public class Tuple {
     private int leftTriangle;
     private int rightTriangle;
 
-    public Tuple(int i, int j) {
-        leftTriangle = i;
-        rightTriangle = j;
+    public Tuple(int leftTriangle, int rightTriangle) {
+        this.leftTriangle = leftTriangle;
+        this.rightTriangle = rightTriangle;
     }
 
     public int getLeftTriangle() {
@@ -18,15 +18,14 @@ public class Tuple {
         return rightTriangle;
     }
 
-    public void setLeftTriangle(int i) {
-        leftTriangle = i;
+    public void squareSwap() {
+        int leftOriginal = leftTriangle;
+        leftTriangle = rightTriangle;
+        rightTriangle = leftOriginal;
     }
 
-    public void setRightTriangle(int i) {
-        rightTriangle = i;
-    }
-
-    public String print() {
+    @Override
+    public String toString() {
         return leftTriangle + "," + rightTriangle;
     }
 }
