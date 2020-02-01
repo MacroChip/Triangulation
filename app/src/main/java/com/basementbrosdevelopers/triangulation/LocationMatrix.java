@@ -1,22 +1,18 @@
 package com.basementbrosdevelopers.triangulation;
 
+import android.util.Log;
+
 public class LocationMatrix {
 
     public final Square[][] matrix;
 
     public LocationMatrix() {
         matrix = new Square[][]{
-                {ranSquare(), ranSquare(), ranSquare(), ranSquare()},
-                {ranSquare(), ranSquare(), ranSquare(), ranSquare()},
-                {ranSquare(), ranSquare(), ranSquare(), ranSquare()},
-                {ranSquare(), ranSquare(), ranSquare(), ranSquare()}
+                {new Square(), new Square(), new Square(), new Square()},
+                {new Square(), new Square(), new Square(), new Square()},
+                {new Square(), new Square(), new Square(), new Square()},
+                {new Square(), new Square(), new Square(), new Square()}
         };
-    }
-
-    private static Square ranSquare() {
-        int ranValA = (int) (4 * Math.random());
-        int ranValB = (int) (4 * Math.random());
-        return new Square(ranValA, ranValB);
     }
 
     @Override

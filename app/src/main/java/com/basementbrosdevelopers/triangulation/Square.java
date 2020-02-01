@@ -2,12 +2,13 @@ package com.basementbrosdevelopers.triangulation;
 
 public class Square {
 
+    public static final double HIGHEST_TRIANGLE_VALUE = 5.27;
     private int leftTriangle;
     private int rightTriangle;
 
-    public Square(int leftTriangle, int rightTriangle) {
-        this.leftTriangle = leftTriangle;
-        this.rightTriangle = rightTriangle;
+    public Square() {
+        this.leftTriangle = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        this.rightTriangle = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
     }
 
     public int getLeftTriangle() {
@@ -19,11 +20,11 @@ public class Square {
     }
 
     public void newLeftTriangle() {
-        leftTriangle = (int) (4 * Math.random());
+        leftTriangle = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
     }
 
     public void newRightTriangle() {
-        rightTriangle = (int) (4 * Math.random());
+        rightTriangle = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
     }
 
     public void swap() {
