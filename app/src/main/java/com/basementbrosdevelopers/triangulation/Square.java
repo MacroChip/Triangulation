@@ -18,6 +18,14 @@ public class Square {
         return rightTriangle;
     }
 
+    public void newLeftTriangle() {
+        leftTriangle = (int) (4 * Math.random());
+    }
+
+    public void newRightTriangle() {
+        rightTriangle = (int) (4 * Math.random());
+    }
+
     public void swap() {
         int leftOriginal = leftTriangle;
         leftTriangle = rightTriangle;

@@ -37,6 +37,7 @@ public class LocationMatrix {
         int y = matrix[j+1][i].getRightTriangle();
         int xy = matrix[j+1][i+1].getLeftTriangle();
         if (o == x && o == y && o == xy) {
+            replaceRightRhombus(j, i);
             return true;
         } else {
             return false;
@@ -49,10 +50,24 @@ public class LocationMatrix {
         int y = matrix[j-1][i].getLeftTriangle();
         int xy = matrix[j-1][i-1].getRightTriangle();
         if (o == x && o == y && o == xy) {
+            replaceLeftRhombus(j, i);
             return true;
         } else {
             return false;
         }
     }
 
+    public void replaceRightRhombus(int j, int i) {
+        matrix[j][i].newRightTriangle();
+        matrix[j][i+1].newLeftTriangle();
+        matrix[j+1][i].newRightTriangle();
+        matrix[j+1][i+1].newLeftTriangle();
+    }
+
+    public void replaceLeftRhombus(int j, int i) {
+        matrix[j][i].newLeftTriangle();
+        matrix[j][i-1].newRightTriangle();
+        matrix[j-1][i].newLeftTriangle();
+        matrix[j-1][i-1].newRightTriangle();
+    }
 }
