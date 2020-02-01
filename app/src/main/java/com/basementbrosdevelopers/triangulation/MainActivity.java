@@ -28,13 +28,24 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout linearLayout = new LinearLayout(this);
         mainView.addView(linearLayout);
         for (Square square : row) {
-            createTriangle(linearLayout, R.drawable.ic_triangleorange);
+            createSquare(linearLayout, square);
         }
     }
 
-    private void createTriangle(ViewGroup parentView, int drawable) {
+    private void createSquare(LinearLayout linearLayout, Square square) {
+        createRotatedTriangle(linearLayout, R.drawable.ic_triangleorange);
+        createTriangle(linearLayout, R.drawable.ic_triangleorange);
+    }
+
+    private void createRotatedTriangle(LinearLayout linearLayout, int drawable) {
+        ImageView triangle = createTriangle(linearLayout, drawable);
+        triangle.setRotation(180f);
+    }
+
+    private ImageView createTriangle(ViewGroup parentView, int drawable) {
         ImageView triangle = new ImageView(this);
         triangle.setImageResource(drawable);
         parentView.addView(triangle);
+        return triangle;
     }
 }
