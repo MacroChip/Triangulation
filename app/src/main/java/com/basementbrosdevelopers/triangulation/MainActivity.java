@@ -1,6 +1,7 @@
 package com.basementbrosdevelopers.triangulation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -12,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LocationMatrix.main(null);
+        Log.d(getClass().toString(), new LocationMatrix().toString());
         ViewGroup mainView = findViewById(R.id.main);
         createTriangle(mainView, R.drawable.ic_triangleblue1);
         createTriangle(mainView, R.drawable.ic_triangleblue2);

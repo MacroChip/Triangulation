@@ -1,39 +1,34 @@
 package com.basementbrosdevelopers.triangulation;
 
-import android.util.Log;
-
 public class LocationMatrix {
 
-    public static void main(String args[])
-    {
-        Square mat[][] = {
-                { ranSquare(), ranSquare(), ranSquare(), ranSquare() },
-                { ranSquare(), ranSquare(), ranSquare(), ranSquare() },
-                { ranSquare(), ranSquare(), ranSquare(), ranSquare() },
-                { ranSquare(), ranSquare(), ranSquare(), ranSquare() }
+    private Square[][] matrix;
+
+    public LocationMatrix() {
+        matrix = new Square[][]{
+                {ranSquare(), ranSquare(), ranSquare(), ranSquare()},
+                {ranSquare(), ranSquare(), ranSquare(), ranSquare()},
+                {ranSquare(), ranSquare(), ranSquare(), ranSquare()},
+                {ranSquare(), ranSquare(), ranSquare(), ranSquare()}
         };
-
-        Square test = new Square(69, 420);
-        test.swap();
-        Log.d("locationMatrix", test.toString() + "XD");
-        print2D(mat);
     }
 
-    public static Square ranSquare() {
-        int ranValA = (int) (4*Math.random());
-        int ranValB = (int) (4*Math.random());
-        Square square = new Square(ranValA,ranValB);
-        return square;
+    private static Square ranSquare() {
+        int ranValA = (int) (4 * Math.random());
+        int ranValB = (int) (4 * Math.random());
+        return new Square(ranValA, ranValB);
     }
 
-    public static void print2D(Square mat[][])
-    {
-        // Loop through all rows
-        for (int i = 0; i < mat.length; i++)
-
-            // Loop through all elements of current row
-            for (int j = 0; j < mat[i].length; j++)
-                Log.d("locationMatrix", mat[i][j].toString() + "; " + i + " " + j);
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder(" ").append("\n");
+        for (Square[] row : matrix) {
+            for (Square square : row) {
+                string.append(square).append(" ");
+            }
+            string.append("\n");
+        }
+        return string.toString();
     }
 
 }
