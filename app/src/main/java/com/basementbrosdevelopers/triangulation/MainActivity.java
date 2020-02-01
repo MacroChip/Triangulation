@@ -57,21 +57,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createSquare(LinearLayout linearLayout, Square square) {
-        ImageView triangle = createTriangle(linearLayout, R.drawable.ic_triangleorange);
+        ImageView triangle = createTriangle(linearLayout, square.getLeftTriangle());
         triangle.setRotation(180f);
-        createTriangle(linearLayout, R.drawable.ic_triangleorange);
+        createTriangle(linearLayout, square.getRightTriangle());
     }
 
     private void createInvertedSquare(LinearLayout linearLayout, Square square) {
-        ImageView triangle = createTriangle(linearLayout, R.drawable.ic_triangleorange);
+        ImageView triangle = createTriangle(linearLayout, square.getLeftTriangle());
         triangle.setRotation(90f);
-        ImageView rotatedTriangle = createTriangle(linearLayout, R.drawable.ic_triangleorange);
+        ImageView rotatedTriangle = createTriangle(linearLayout, square.getRightTriangle());
         rotatedTriangle.setRotation(-90f);
     }
 
-    private ImageView createTriangle(ViewGroup parentView, int drawable) {
+    private ImageView createTriangle(ViewGroup parentView, int triangleValue) {
         ImageView triangle = new ImageView(this);
-        triangle.setImageResource(drawable);
+        triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
         parentView.addView(triangle);
         return triangle;
     }
