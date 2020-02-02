@@ -39,15 +39,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showInstructions();
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        mainView = findViewById(R.id.main);
+        newGame();
+    }
+
+    private void showInstructions() {
         new AlertDialog.Builder(this)
                 .setTitle("Instructions")
                 .setMessage("Goal: Make a square with four triangles of the same color.\nHow to play: Tap a triangle to swap it with its partner triangle. Long tap a square to start a swap with another square, then choose the destination square. Square swapping requires energy but triangle swapping does not.")
                 .setPositiveButton("Start", null)
                 .create()
                 .show();
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        mainView = findViewById(R.id.main);
-        newGame();
     }
 
     private void newGame() {
@@ -67,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.new_game) {
             newGame();
+            return true;
+        }
+        if (item.getItemId() == R.id.instructions) {
+            showInstructions();
             return true;
         }
         return super.onOptionsItemSelected(item);
