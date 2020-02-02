@@ -28,59 +28,82 @@ public class LocationMatrix {
     }
 
     public boolean checkRightRhombus(int j, int i) {
-
-        if (j % 2 == 0 && i % 2 == 0) {
-            int o = matrix[j][i].getRightTriangle();
-            int x = matrix[j][i + 1].getLeftTriangle();
-            int y = matrix[j + 1][i].getRightTriangle();
-            int xy = matrix[j + 1][i + 1].getLeftTriangle();
-            if (o == x && o == y && o == xy) {
-                replaceRightRhombus(j, i);
-                scoreboard.add();
-                return true;
+        if (i != 3) {
+            if (j % 2 == i % 2) {
+                if (j != 3) {                                           //MAX J VALUE
+                    int o = matrix[j][i].getRightTriangle();
+                    int x = matrix[j][i + 1].getLeftTriangle();
+                    int y = matrix[j + 1][i].getRightTriangle();
+                    int xy = matrix[j + 1][i + 1].getLeftTriangle();
+                    if (o == x && o == y && o == xy) {
+                        replaceRightRhombus(j, i);
+                        scoreboard.add();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                if (j != 0) {
+                    int o = matrix[j][i].getRightTriangle();
+                    int x = matrix[j][i + 1].getLeftTriangle();
+                    int y = matrix[j - 1][i].getRightTriangle();
+                    int xy = matrix[j - 1][i + 1].getLeftTriangle();
+                    if (o == x && o == y && o == xy) {
+                        replaceRightRhombus(j, i);
+                        scoreboard.add();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             }
         } else {
-            int o = matrix[j][i].getRightTriangle();
-            int x = matrix[j][i + 1].getLeftTriangle();
-            int y = matrix[j - 1][i].getRightTriangle();
-            int xy = matrix[j - 1][i + 1].getLeftTriangle();
-            if (o == x && o == y && o == xy) {
-                replaceRightRhombus(j, i);
-                scoreboard.add();
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 
     public boolean checkLeftRhombus(int j, int i) {
-        if (j % 2 == 0 && i % 2 == 0) {
-            int o = matrix[j][i].getLeftTriangle();
-            int x = matrix[j][i - 1].getRightTriangle();
-            int y = matrix[j - 1][i].getLeftTriangle();
-            int xy = matrix[j - 1][i - 1].getRightTriangle();
-            if (o == x && o == y && o == xy) {
-                replaceLeftRhombus(j, i);
-                scoreboard.add();
-                return true;
+        if (i != 0) {
+            if (j % 2 == i % 2) {
+                if (j != 0) {
+                    int o = matrix[j][i].getLeftTriangle();
+                    int x = matrix[j][i - 1].getRightTriangle();
+                    int y = matrix[j - 1][i].getLeftTriangle();
+                    int xy = matrix[j - 1][i - 1].getRightTriangle();
+                    if (o == x && o == y && o == xy) {
+                        replaceLeftRhombus(j, i);
+                        scoreboard.add();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                if (j != 3) {                               //MAX J VALUE
+                    int o = matrix[j][i].getLeftTriangle();
+                    int x = matrix[j][i - 1].getRightTriangle();
+                    int y = matrix[j + 1][i].getLeftTriangle();
+                    int xy = matrix[j + 1][i - 1].getRightTriangle();
+                    if (o == x && o == y && o == xy) {
+                        replaceLeftRhombus(j, i);
+                        scoreboard.add();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             }
         } else {
-            int o = matrix[j][i].getLeftTriangle();
-            int x = matrix[j][i - 1].getRightTriangle();
-            int y = matrix[j + 1][i].getLeftTriangle();
-            int xy = matrix[j + 1][i - 1].getRightTriangle();
-            if (o == x && o == y && o == xy) {
-                replaceLeftRhombus(j, i);
-                scoreboard.add();
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 
