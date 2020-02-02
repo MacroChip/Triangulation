@@ -94,33 +94,45 @@ public class MainActivity extends AppCompatActivity {
         triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
         triangle.setOnClickListener(v -> {
             Log.d(MainActivity.this.getClass().toString(), "Clicking x: " + x + ", y: " + y);
-            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.woosh);
-            mediaPlayer.setOnCompletionListener(MediaPlayer::release);
-            mediaPlayer.start();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    Log.d(getClass().toString(), "Using modern vibrator");
-                    vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK));
-                }
-            } else {
-                Log.d(getClass().toString(), "Using legacy vibrator");
-                vibrator.vibrate(new long[]{DO_NOT_WAIT, VIBRATION_TIME}, DO_NOT_REPEAT);
-            }
+            giveTapFeedback();
             locationMatrix.matrix[y][x].swap();
-            boolean leftConditionMet = locationMatrix.checkLeftRhombus(y, x);
-            if (leftConditionMet) {
-                locationMatrix.replaceLeftRhombus(y, x);
-                scoreboard.add();
-            }
-            boolean rightConditionMet = locationMatrix.checkRightRhombus(y, x);
-            if (rightConditionMet) {
-                locationMatrix.replaceRightRhombus(y, x);
-                scoreboard.add();
-            }
-            mainView.removeAllViews();
-            createView();
+            checkAfterSwapConditions(y, x);
+            redraw();
         });
         parentView.addView(triangle);
         return triangle;
+    }
+
+    private void redraw() {
+        mainView.removeAllViews();
+        createView();
+    }
+
+    private void checkAfterSwapConditions(int y, int x) {
+        boolean leftConditionMet = locationMatrix.checkLeftRhombus(y, x);
+        if (leftConditionMet) {
+            locationMatrix.replaceLeftRhombus(y, x);
+            scoreboard.add();
+        }
+        boolean rightConditionMet = locationMatrix.checkRightRhombus(y, x);
+        if (rightConditionMet) {
+            locationMatrix.replaceRightRhombus(y, x);
+            scoreboard.add();
+        }
+    }
+
+    private void giveTapFeedback() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.woosh);
+        mediaPlayer.setOnCompletionListener(MediaPlayer::release);
+        mediaPlayer.start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                Log.d(getClass().toString(), "Using modern vibrator");
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK));
+            }
+        } else {
+            Log.d(getClass().toString(), "Using legacy vibrator");
+            vibrator.vibrate(new long[]{DO_NOT_WAIT, VIBRATION_TIME}, DO_NOT_REPEAT);
+        }
     }
 }
