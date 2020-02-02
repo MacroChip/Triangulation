@@ -3,38 +3,43 @@ package com.basementbrosdevelopers.triangulation;
 public class Square {
 
     private static final double HIGHEST_TRIANGLE_VALUE = 5.27;
-    private int leftTriangle;
-    private int rightTriangle;
+    private int left;
+    private int right;
 
     public Square() {
-        this.leftTriangle = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
-        this.rightTriangle = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        this.left = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        this.right = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
     }
 
-    public int getLeftTriangle() {
-        return leftTriangle;
+    public Square(int left, int right) {
+        this.left = left;
+        this.right = right;
     }
 
-    public int getRightTriangle() {
-        return rightTriangle;
+    public int getLeft() {
+        return left;
+    }
+
+    public int getRight() {
+        return right;
     }
 
     public void newLeftTriangle() {
-        leftTriangle = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        left = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
     }
 
     public void newRightTriangle() {
-        rightTriangle = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        right = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
     }
 
     public void swap() {
-        int leftOriginal = leftTriangle;
-        leftTriangle = rightTriangle;
-        rightTriangle = leftOriginal;
+        int leftOriginal = left;
+        left = right;
+        right = leftOriginal;
     }
 
     @Override
     public String toString() {
-        return leftTriangle + "," + rightTriangle;
+        return left + "," + right;
     }
 }

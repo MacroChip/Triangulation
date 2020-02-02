@@ -64,17 +64,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void createSquare(LinearLayout linearLayout, Square square, int y, int x) {
         FrameLayout frame = new FrameLayout(this);
-        ImageView leftTriangle = createTriangle(frame, square.getLeftTriangle(), y, x);
+        ImageView leftTriangle = createTriangle(frame, square.getLeft(), y, x);
         leftTriangle.setRotation(180f);
-        createTriangle(frame, square.getRightTriangle(), y, x);
+        createTriangle(frame, square.getRight(), y, x);
         linearLayout.addView(frame);
     }
 
     private void createInvertedSquare(LinearLayout linearLayout, Square square, int y, int x) {
         FrameLayout frame = new FrameLayout(this);
-        ImageView leftTriangle = createTriangle(frame, square.getLeftTriangle(), y, x);
+        ImageView leftTriangle = createTriangle(frame, square.getLeft(), y, x);
         leftTriangle.setRotation(90f);
-        ImageView rightTriangle = createTriangle(frame, square.getRightTriangle(), y, x);
+        ImageView rightTriangle = createTriangle(frame, square.getRight(), y, x);
         rightTriangle.setRotation(-90f);
         linearLayout.addView(frame);
     }
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView triangle = new ImageView(this);
         triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
         triangle.setOnClickListener(v -> {
+            Log.d(MainActivity.this.getClass().toString(), "Clicking x: " + x + ", y: " + y);
             locationMatrix.matrix[y][x].swap();
             locationMatrix.checkLeftRhombus(y, x);
             locationMatrix.checkRightRhombus(y, x);
