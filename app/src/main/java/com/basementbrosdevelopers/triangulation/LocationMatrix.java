@@ -10,14 +10,17 @@ public class LocationMatrix {
     public final Square[][] matrix;
 
     public LocationMatrix() {
-        matrix = new Square[][]{
-                {new Square(), biasedSquare(0, 1), biasedSquare(0, 2), biasedSquare(0, 3)},
-                {new Square(), biasedSquare(1, 1), biasedSquare(1, 2), biasedSquare(1, 3)},
-                {new Square(), biasedSquare(2, 1), biasedSquare(2, 2), biasedSquare(2, 3)},
-                {new Square(), biasedSquare(3, 1), biasedSquare(3, 2), biasedSquare(3, 3)},
-                {new Square(), biasedSquare(4, 1), biasedSquare(4, 2), biasedSquare(4, 3)},
-                {new Square(), biasedSquare(5, 1), biasedSquare(5, 2), biasedSquare(5, 3)},
-        };
+        matrix = new Square[6][4];
+        for (int j = 0; j < matrix.length; j++) {
+            Square[] row = matrix[j];
+            for (int i = 0; i < row.length; i++) {
+                if (i > 0) {
+                    row[i] = biasedSquare(j, i);
+                } else {
+                    row[i] = new Square();
+                }
+            }
+        }
     }
 
     public LocationMatrix(Square[][] matrix) {
@@ -27,7 +30,8 @@ public class LocationMatrix {
     public Square biasedSquare(int j, int i) {
         Square newSquare = new Square();
         if (Math.random() < .2) {
-            newSquare.setLeft(matrix[j][i-1].getLeft());
+            newSquare.setLeft(matrix[j][i-1].getRight());
+            newSquare.newRightTriangle();
         }
         return newSquare;
     }
