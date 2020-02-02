@@ -1,5 +1,7 @@
 package com.basementbrosdevelopers.triangulation
 
+import java.util.*
+
 fun areAllTheSame(numbers: List<Int>): Boolean {
     if (numbers.isEmpty()) {
         return true
@@ -13,5 +15,5 @@ fun filterOutWildCards(numbers: List<Int>): List<Int> {
 }
 
 fun main() {
-    print(areAllTheSame(filterOutWildCards(listOf(5, 3, 5, 3))))
+    print(areAllTheSame(filterOutWildCards(Arrays.asList(5, 3, 5, 3))))
 }
