@@ -126,10 +126,10 @@ public class LocationMatrix {
         }
     }
 
-    public void swap(int j1, int i1, int j2, int i2) {
-        Square temp = matrix[j1][i1];
-        matrix[j1][i1] = matrix[j2][i2];
-        matrix[j2][i2] = temp;
+    public void swap(int jOrigin, int iOrigin, int jDestination, int iDestination) {
+        Square temp = matrix[jOrigin][iOrigin];
+        matrix[jOrigin][iOrigin] = matrix[jDestination][iDestination];
+        matrix[jDestination][iDestination] = temp;
     }
 
     public boolean isInGridlock() {

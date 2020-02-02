@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int DO_NOT_REPEAT = -1;
     private ViewGroup mainView;
     private Scoreboard scoreboard = new Scoreboard();
+    private Energy energy;
     private LocationMatrix locationMatrix;
     private Vibrator vibrator;
 
