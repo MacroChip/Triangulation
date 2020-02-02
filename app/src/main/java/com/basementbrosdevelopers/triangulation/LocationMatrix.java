@@ -27,10 +27,10 @@ public class LocationMatrix {
         return string.toString();
     }
 
-    public boolean checkRightRhombus(int j, int i) {
-        if (i != 3) {
+    public void checkRightRhombus(int j, int i) {
+        if (i < matrix[0].length) {
             if (j % 2 == i % 2) {
-                if (j != 3) {                                           //MAX J VALUE
+                if (j < matrix.length) {
                     int o = matrix[j][i].getRightTriangle();
                     int x = matrix[j][i + 1].getLeftTriangle();
                     int y = matrix[j + 1][i].getRightTriangle();
@@ -38,15 +38,10 @@ public class LocationMatrix {
                     if (o == x && o == y && o == xy) {
                         replaceRightRhombus(j, i);
                         scoreboard.add();
-                        return true;
-                    } else {
-                        return false;
                     }
-                } else {
-                    return false;
                 }
             } else {
-                if (j != 0) {
+                if (j > 0) {
                     int o = matrix[j][i].getRightTriangle();
                     int x = matrix[j][i + 1].getLeftTriangle();
                     int y = matrix[j - 1][i].getRightTriangle();
@@ -54,23 +49,16 @@ public class LocationMatrix {
                     if (o == x && o == y && o == xy) {
                         replaceRightRhombus(j, i);
                         scoreboard.add();
-                        return true;
-                    } else {
-                        return false;
                     }
-                } else {
-                    return false;
                 }
             }
-        } else {
-            return false;
         }
     }
 
-    public boolean checkLeftRhombus(int j, int i) {
-        if (i != 0) {
+    public void checkLeftRhombus(int j, int i) {
+        if (i > 0) {
             if (j % 2 == i % 2) {
-                if (j != 0) {
+                if (j > 0) {
                     int o = matrix[j][i].getLeftTriangle();
                     int x = matrix[j][i - 1].getRightTriangle();
                     int y = matrix[j - 1][i].getLeftTriangle();
@@ -78,15 +66,10 @@ public class LocationMatrix {
                     if (o == x && o == y && o == xy) {
                         replaceLeftRhombus(j, i);
                         scoreboard.add();
-                        return true;
-                    } else {
-                        return false;
                     }
-                } else {
-                    return false;
                 }
             } else {
-                if (j != 3) {                               //MAX J VALUE
+                if (j < matrix.length) {
                     int o = matrix[j][i].getLeftTriangle();
                     int x = matrix[j][i - 1].getRightTriangle();
                     int y = matrix[j + 1][i].getLeftTriangle();
@@ -94,16 +77,9 @@ public class LocationMatrix {
                     if (o == x && o == y && o == xy) {
                         replaceLeftRhombus(j, i);
                         scoreboard.add();
-                        return true;
-                    } else {
-                        return false;
                     }
-                } else {
-                    return false;
                 }
             }
-        } else {
-            return false;
         }
     }
 
