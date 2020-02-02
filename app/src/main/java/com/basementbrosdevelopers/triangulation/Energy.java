@@ -11,4 +11,12 @@ public class Energy {
     public void gainEnergy() {
         energyLevel += 1;
     }
+
+    public int getEnergy() {
+        return energyLevel;
+    }
+
+    public boolean canSwapSquares() {
+        return energyLevel > 0;
+    }
 }

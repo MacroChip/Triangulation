@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int DO_NOT_REPEAT = -1;
     private ViewGroup mainView;
     private Scoreboard scoreboard = new Scoreboard();
-    private Energy energy;
+    private Energy energy = new Energy();
     private LocationMatrix locationMatrix;
     private Vibrator vibrator;
     private SquareSwapModel squareSwapModel = new SquareSwapModel();
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         new AlertDialog.Builder(this)
                 .setTitle("Instructions")
-                .setMessage("Goal: Make a square with four triangles of the same color.\nHow to play: Tap a triangle to swap it with its partner triangle. Long tap a square to start a swap with another square, then choose the destination square.")
+                .setMessage("Goal: Make a square with four triangles of the same color.\nHow to play: Tap a triangle to swap it with its partner triangle. Long tap a square to start a swap with another square, then choose the destination square. Square swapping requires energy but triangle swapping does not.")
                 .setPositiveButton("Start", null)
                 .create()
                 .show();
@@ -139,14 +139,17 @@ public class MainActivity extends AppCompatActivity {
         ImageView triangle = new ImageView(this);
         triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
         triangle.setOnLongClickListener(v -> {
-            squareSwapModel.setOrigin(y, x);
-            redraw();
+            if (energy.canSwapSquares()) {
+                squareSwapModel.setOrigin(y, x);
+                redraw();
+            }
             return true;
         });
         triangle.setOnClickListener(v -> {
             Log.d(MainActivity.this.getClass().toString(), "Clicking x: " + x + ", y: " + y);
             if (squareSwapModel.hasOriginSet()) {
                 locationMatrix.swap(squareSwapModel.getJOrigin(), squareSwapModel.getIOrigin(), y, x);
+                energy.loseEnergy();
                 checkAfterSwapConditions(y, x);
                 checkAfterSwapConditions(squareSwapModel.getJOrigin(), squareSwapModel.getIOrigin());
                 squareSwapModel.clearOrigin();
@@ -163,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void redraw() {
+        setTitle("Energy: " + energy.getEnergy());
         mainView.removeAllViews();
         createView();
     }
@@ -171,11 +175,13 @@ public class MainActivity extends AppCompatActivity {
         boolean leftConditionMet = locationMatrix.checkLeftRhombus(y, x);
         if (leftConditionMet) {
             locationMatrix.replaceLeftRhombus(y, x);
+            energy.gainEnergy();
             scoreboard.add();
         }
         boolean rightConditionMet = locationMatrix.checkRightRhombus(y, x);
         if (rightConditionMet) {
             locationMatrix.replaceRightRhombus(y, x);
+            energy.gainEnergy();
             scoreboard.add();
         }
         if (leftConditionMet || rightConditionMet) {
