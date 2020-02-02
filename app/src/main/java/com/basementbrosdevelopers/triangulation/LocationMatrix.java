@@ -11,17 +11,25 @@ public class LocationMatrix {
 
     public LocationMatrix() {
         matrix = new Square[][]{
-                {new Square(), new Square(), new Square(), new Square()},
-                {new Square(), new Square(), new Square(), new Square()},
-                {new Square(), new Square(), new Square(), new Square()},
-                {new Square(), new Square(), new Square(), new Square()},
-                {new Square(), new Square(), new Square(), new Square()},
-                {new Square(), new Square(), new Square(), new Square()},
+                {new Square(), biasedSquare(0, 1), biasedSquare(0, 2), biasedSquare(0, 3)},
+                {new Square(), biasedSquare(1, 1), biasedSquare(1, 2), biasedSquare(1, 3)},
+                {new Square(), biasedSquare(2, 1), biasedSquare(2, 2), biasedSquare(2, 3)},
+                {new Square(), biasedSquare(3, 1), biasedSquare(3, 2), biasedSquare(3, 3)},
+                {new Square(), biasedSquare(4, 1), biasedSquare(4, 2), biasedSquare(4, 3)},
+                {new Square(), biasedSquare(5, 1), biasedSquare(5, 2), biasedSquare(5, 3)},
         };
     }
 
     public LocationMatrix(Square[][] matrix) {
         this.matrix = matrix;
+    }
+
+    public Square biasedSquare(int j, int i) {
+        Square newSquare = new Square();
+        if (Math.random() < .2) {
+            newSquare.setLeft(matrix[j][i-1].getLeft());
+        }
+        return newSquare;
     }
 
     public LocationMatrix deepCopy() {
