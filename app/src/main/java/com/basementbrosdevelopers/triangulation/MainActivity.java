@@ -1,5 +1,6 @@
 package com.basementbrosdevelopers.triangulation;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -84,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
         triangle.setOnClickListener(v -> {
             Log.d(MainActivity.this.getClass().toString(), "Clicking x: " + x + ", y: " + y);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.woosh);
+            mediaPlayer.setOnCompletionListener(MediaPlayer::release);
+            mediaPlayer.start();
             locationMatrix.matrix[y][x].swap();
             locationMatrix.checkLeftRhombus(y, x);
             locationMatrix.checkRightRhombus(y, x);
