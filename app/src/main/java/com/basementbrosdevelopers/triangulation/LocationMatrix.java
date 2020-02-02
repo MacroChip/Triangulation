@@ -14,7 +14,9 @@ public class LocationMatrix {
                 {new Square(), new Square(), new Square(), new Square()},
                 {new Square(), new Square(), new Square(), new Square()},
                 {new Square(), new Square(), new Square(), new Square()},
-                {new Square(), new Square(), new Square(), new Square()}
+                {new Square(), new Square(), new Square(), new Square()},
+                {new Square(), new Square(), new Square(), new Square()},
+                {new Square(), new Square(), new Square(), new Square()},
         };
     }
 
