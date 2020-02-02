@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RawRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,10 +41,30 @@ public class MainActivity extends AppCompatActivity {
                 .create()
                 .show();
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        mainView = findViewById(R.id.main);
+        newGame();
+    }
+
+    private void newGame() {
         locationMatrix = new LocationMatrix();
         Log.d(getClass().toString(), locationMatrix.toString());
-        mainView = findViewById(R.id.main);
-        createView();
+        redraw();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_options_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.new_game) {
+            newGame();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void createView() {
