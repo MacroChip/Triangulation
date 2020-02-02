@@ -18,6 +18,22 @@ public class LocationMatrix {
         };
     }
 
+    public LocationMatrix(Square[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    public LocationMatrix deepCopy() {
+        Square[][] matrix = new Square[this.matrix.length][this.matrix[0].length];
+        for (int y = 0; y < this.matrix.length; y++) {
+            Square[] row = this.matrix[y];
+            for (int x = 0; x < row.length; x++) {
+                Square square = row[x];
+                matrix[y][x] = square.deepCopy();
+            }
+        }
+        return new LocationMatrix(matrix);
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder(" ").append("\n");
@@ -106,5 +122,9 @@ public class LocationMatrix {
             matrix[j + 1][i].newLeftTriangle();
             matrix[j + 1][i - 1].newRightTriangle();
         }
+    }
+
+    public boolean isInGridlock() {
+        return false;
     }
 }

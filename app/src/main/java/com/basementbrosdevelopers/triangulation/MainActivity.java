@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             giveTapFeedback();
             locationMatrix.matrix[y][x].swap();
             checkAfterSwapConditions(y, x);
+            if (locationMatrix.isInGridlock()) {
+                Log.i(MainActivity.this.getClass().toString(), "Gridlocked!");
+            }
             redraw();
         });
         parentView.addView(triangle);

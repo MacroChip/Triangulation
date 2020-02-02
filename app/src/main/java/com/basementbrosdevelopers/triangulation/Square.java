@@ -16,6 +16,10 @@ public class Square {
         this.right = right;
     }
 
+    public Square deepCopy() {
+        return new Square(left, right);
+    }
+
     public int getLeft() {
         return left;
     }
