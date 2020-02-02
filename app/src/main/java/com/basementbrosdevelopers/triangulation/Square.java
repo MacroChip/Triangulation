@@ -7,8 +7,10 @@ public class Square {
     private int right;
 
     public Square() {
-        this.left = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
-        this.right = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        do {
+            this.left = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+            this.right = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        } while (left == right);
     }
 
     public Square(int left, int right) {
@@ -29,11 +31,15 @@ public class Square {
     }
 
     public void newLeftTriangle() {
-        left = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        do {
+            left = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        } while (left == right);
     }
 
     public void newRightTriangle() {
-        right = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        do {
+            right = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
+        } while (left == right);
     }
 
     public void swap() {
