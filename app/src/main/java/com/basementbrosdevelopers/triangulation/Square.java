@@ -30,6 +30,14 @@ public class Square {
         return right;
     }
 
+    public void setLeft(int x) {
+        left = x;
+    }
+
+    public void setRight(int x) {
+        right = x;
+    }
+
     public void newLeftTriangle() {
         do {
             left = (int) (HIGHEST_TRIANGLE_VALUE * Math.random());
