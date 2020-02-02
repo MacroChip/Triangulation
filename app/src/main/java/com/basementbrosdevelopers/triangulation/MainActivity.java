@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
         triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
         triangle.setOnClickListener(v -> {
             locationMatrix.matrix[y][x].swap();
+            locationMatrix.checkLeftRhombus(y, x);
+            locationMatrix.checkRightRhombus(y, x);
             mainView.removeAllViews();
             createView();
         });

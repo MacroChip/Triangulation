@@ -28,44 +28,87 @@ public class LocationMatrix {
     }
 
     public boolean checkRightRhombus(int j, int i) {
-        int o = matrix[j][i].getRightTriangle();
-        int x = matrix[j][i + 1].getLeftTriangle();
-        int y = matrix[j + 1][i].getRightTriangle();
-        int xy = matrix[j + 1][i + 1].getLeftTriangle();
-        if (o == x && o == y && o == xy) {
-            replaceRightRhombus(j, i);
-            scoreboard.add();
-            return true;
+
+        if (j % 2 == 0 && i % 2 == 0) {
+            int o = matrix[j][i].getRightTriangle();
+            int x = matrix[j][i + 1].getLeftTriangle();
+            int y = matrix[j + 1][i].getRightTriangle();
+            int xy = matrix[j + 1][i + 1].getLeftTriangle();
+            if (o == x && o == y && o == xy) {
+                replaceRightRhombus(j, i);
+                scoreboard.add();
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            int o = matrix[j][i].getRightTriangle();
+            int x = matrix[j][i + 1].getLeftTriangle();
+            int y = matrix[j - 1][i].getRightTriangle();
+            int xy = matrix[j - 1][i + 1].getLeftTriangle();
+            if (o == x && o == y && o == xy) {
+                replaceRightRhombus(j, i);
+                scoreboard.add();
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
     public boolean checkLeftRhombus(int j, int i) {
-        int o = matrix[j][i].getLeftTriangle();
-        int x = matrix[j][i - 1].getRightTriangle();
-        int y = matrix[j - 1][i].getLeftTriangle();
-        int xy = matrix[j - 1][i - 1].getRightTriangle();
-        if (o == x && o == y && o == xy) {
-            replaceLeftRhombus(j, i);
-            scoreboard.add();
-            return true;
+        if (j % 2 == 0 && i % 2 == 0) {
+            int o = matrix[j][i].getLeftTriangle();
+            int x = matrix[j][i - 1].getRightTriangle();
+            int y = matrix[j - 1][i].getLeftTriangle();
+            int xy = matrix[j - 1][i - 1].getRightTriangle();
+            if (o == x && o == y && o == xy) {
+                replaceLeftRhombus(j, i);
+                scoreboard.add();
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            int o = matrix[j][i].getLeftTriangle();
+            int x = matrix[j][i - 1].getRightTriangle();
+            int y = matrix[j + 1][i].getLeftTriangle();
+            int xy = matrix[j + 1][i - 1].getRightTriangle();
+            if (o == x && o == y && o == xy) {
+                replaceLeftRhombus(j, i);
+                scoreboard.add();
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
     private void replaceRightRhombus(int j, int i) {
-        matrix[j][i].newRightTriangle();
-        matrix[j][i + 1].newLeftTriangle();
-        matrix[j + 1][i].newRightTriangle();
-        matrix[j + 1][i + 1].newLeftTriangle();
+        if (j % 2 == 0 && i % 2 == 0) {
+            matrix[j][i].newRightTriangle();
+            matrix[j][i + 1].newLeftTriangle();
+            matrix[j + 1][i].newRightTriangle();
+            matrix[j + 1][i + 1].newLeftTriangle();
+        } else {
+            matrix[j][i].newRightTriangle();
+            matrix[j][i + 1].newLeftTriangle();
+            matrix[j - 1][i].newRightTriangle();
+            matrix[j - 1][i + 1].newLeftTriangle();
+        }
     }
 
     private void replaceLeftRhombus(int j, int i) {
-        matrix[j][i].newLeftTriangle();
-        matrix[j][i - 1].newRightTriangle();
-        matrix[j - 1][i].newLeftTriangle();
-        matrix[j - 1][i - 1].newRightTriangle();
+        if (j % 2 == 0 && i % 2 == 0) {
+            matrix[j][i].newLeftTriangle();
+            matrix[j][i - 1].newRightTriangle();
+            matrix[j - 1][i].newLeftTriangle();
+            matrix[j - 1][i - 1].newRightTriangle();
+        } else {
+            matrix[j][i].newLeftTriangle();
+            matrix[j][i - 1].newRightTriangle();
+            matrix[j + 1][i].newLeftTriangle();
+            matrix[j + 1][i - 1].newRightTriangle();
+        }
     }
 }
