@@ -8,16 +8,14 @@ import static com.basementbrosdevelopers.triangulation.NumberUtilsKt.filterOutWi
 public class LocationMatrix {
 
     public final Square[][] matrix;
-    public Scoreboard scoreboard;
 
-    public LocationMatrix(Scoreboard scoreboard) {
+    public LocationMatrix() {
         matrix = new Square[][]{
                 {new Square(), new Square(), new Square(), new Square()},
                 {new Square(), new Square(), new Square(), new Square()},
                 {new Square(), new Square(), new Square(), new Square()},
                 {new Square(), new Square(), new Square(), new Square()}
         };
-        this.scoreboard = scoreboard;
     }
 
     @Override
@@ -32,7 +30,7 @@ public class LocationMatrix {
         return string.toString();
     }
 
-    public void checkRightRhombus(int j, int i) {
+    public boolean checkRightRhombus(int j, int i) {
         if (i < matrix[0].length - 1) {
             if (j % 2 == i % 2) {
                 if (j < matrix.length - 1) {
@@ -40,10 +38,7 @@ public class LocationMatrix {
                     int x = matrix[j][i + 1].getLeft();
                     int y = matrix[j + 1][i].getRight();
                     int xy = matrix[j + 1][i + 1].getLeft();
-                    if (isARhombus(o, x, y, xy)) {
-                        replaceRightRhombus(j, i);
-                        scoreboard.add();
-                    }
+                    return isARhombus(o, x, y, xy);
                 }
             } else {
                 if (j > 0) {
@@ -51,20 +46,18 @@ public class LocationMatrix {
                     int x = matrix[j][i + 1].getLeft();
                     int y = matrix[j - 1][i].getRight();
                     int xy = matrix[j - 1][i + 1].getLeft();
-                    if (isARhombus(o, x, y, xy)) {
-                        replaceRightRhombus(j, i);
-                        scoreboard.add();
-                    }
+                    return isARhombus(o, x, y, xy);
                 }
             }
         }
+        return false;
     }
 
     private static boolean isARhombus(int o, int x, int y, int xy) {
         return areAllTheSame(filterOutWildCards(Arrays.asList(o, x, y, xy)));
     }
 
-    public void checkLeftRhombus(int j, int i) {
+    public boolean checkLeftRhombus(int j, int i) {
         if (i > 0) {
             if (j % 2 == i % 2) {
                 if (j > 0) {
@@ -72,10 +65,7 @@ public class LocationMatrix {
                     int x = matrix[j][i - 1].getRight();
                     int y = matrix[j - 1][i].getLeft();
                     int xy = matrix[j - 1][i - 1].getRight();
-                    if (isARhombus(o, x, y, xy)) {
-                        replaceLeftRhombus(j, i);
-                        scoreboard.add();
-                    }
+                    return isARhombus(o, x, y, xy);
                 }
             } else {
                 if (j < matrix.length - 1) {
@@ -83,16 +73,14 @@ public class LocationMatrix {
                     int x = matrix[j][i - 1].getRight();
                     int y = matrix[j + 1][i].getLeft();
                     int xy = matrix[j + 1][i - 1].getRight();
-                    if (isARhombus(o, x, y, xy)) {
-                        replaceLeftRhombus(j, i);
-                        scoreboard.add();
-                    }
+                    return isARhombus(o, x, y, xy);
                 }
             }
         }
+        return false;
     }
 
-    private void replaceRightRhombus(int j, int i) {
+    public void replaceRightRhombus(int j, int i) {
         if (j % 2 == i % 2) {
             matrix[j][i].newRightTriangle();
             matrix[j][i + 1].newLeftTriangle();
@@ -106,7 +94,7 @@ public class LocationMatrix {
         }
     }
 
-    private void replaceLeftRhombus(int j, int i) {
+    public void replaceLeftRhombus(int j, int i) {
         if (j % 2 == i % 2) {
             matrix[j][i].newLeftTriangle();
             matrix[j][i - 1].newRightTriangle();

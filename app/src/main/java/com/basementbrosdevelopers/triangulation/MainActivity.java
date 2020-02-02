@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int VIBRATION_TIME = 15;
     public static final int DO_NOT_REPEAT = -1;
     private ViewGroup mainView;
-    private Scoreboard allScores = new Scoreboard();
+    private Scoreboard scoreboard = new Scoreboard();
     private LocationMatrix locationMatrix;
     private Vibrator vibrator;
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        locationMatrix = new LocationMatrix(allScores);
+        locationMatrix = new LocationMatrix();
         Log.d(getClass().toString(), locationMatrix.toString());
         mainView = findViewById(R.id.main);
         createView();
@@ -107,8 +107,16 @@ public class MainActivity extends AppCompatActivity {
                 vibrator.vibrate(new long[]{DO_NOT_WAIT, VIBRATION_TIME}, DO_NOT_REPEAT);
             }
             locationMatrix.matrix[y][x].swap();
-            locationMatrix.checkLeftRhombus(y, x);
-            locationMatrix.checkRightRhombus(y, x);
+            boolean leftConditionMet = locationMatrix.checkLeftRhombus(y, x);
+            if (leftConditionMet) {
+                locationMatrix.replaceLeftRhombus(y, x);
+                scoreboard.add();
+            }
+            boolean rightConditionMet = locationMatrix.checkRightRhombus(y, x);
+            if (rightConditionMet) {
+                locationMatrix.replaceRightRhombus(y, x);
+                scoreboard.add();
+            }
             mainView.removeAllViews();
             createView();
         });
