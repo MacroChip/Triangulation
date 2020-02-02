@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.RawRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -129,12 +130,13 @@ public class MainActivity extends AppCompatActivity {
             locationMatrix.replaceRightRhombus(y, x);
             scoreboard.add();
         }
+        if (leftConditionMet || rightConditionMet) {
+            playSound(R.raw.ree);
+        }
     }
 
     private void giveTapFeedback() {
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.woosh);
-        mediaPlayer.setOnCompletionListener(MediaPlayer::release);
-        mediaPlayer.start();
+        playSound(R.raw.woosh);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 Log.d(getClass().toString(), "Using modern vibrator");
@@ -144,5 +146,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d(getClass().toString(), "Using legacy vibrator");
             vibrator.vibrate(new long[]{DO_NOT_WAIT, VIBRATION_TIME}, DO_NOT_REPEAT);
         }
+    }
+
+    private void playSound(@RawRes int soundId) {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, soundId);
+        mediaPlayer.setOnCompletionListener(MediaPlayer::release);
+        mediaPlayer.start();
     }
 }
