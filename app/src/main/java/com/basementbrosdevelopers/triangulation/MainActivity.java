@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         new AlertDialog.Builder(this)
                 .setTitle("Instructions")
-                .setMessage("Make a square with four triangles of the same color. Tap a triangle to swap it with its partner triangle.")
+                .setMessage("Goal: Make a square with four triangles of the same color.\nHow to play: Tap a triangle to swap it with its partner triangle. Long tap a square to start a swap with another square, then choose the destination square.")
                 .setPositiveButton("Start", null)
                 .create()
                 .show();
