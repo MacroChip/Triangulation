@@ -1,5 +1,6 @@
 package com.basementbrosdevelopers.triangulation
 
+import com.basementbrosdevelopers.triangulation.GraphicsManager.WILDCARD_INDEX
 import java.util.*
 
 fun areAllTheSame(numbers: List<Int>): Boolean {
@@ -11,7 +12,7 @@ fun areAllTheSame(numbers: List<Int>): Boolean {
 }
 
 fun filterOutWildCards(numbers: List<Int>): List<Int> {
-    return numbers.filter { it != 5 }
+    return numbers.filter { it != WILDCARD_INDEX }
 }
 
 fun main() {

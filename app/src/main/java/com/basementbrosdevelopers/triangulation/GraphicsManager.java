@@ -6,6 +6,8 @@ import androidx.annotation.DrawableRes;
 
 public class GraphicsManager {
 
+    public static final int WILDCARD_INDEX;
+
     private static final SparseIntArray graphicsMap = new SparseIntArray();
 
     static {
@@ -15,6 +17,7 @@ public class GraphicsManager {
         graphicsMap.put(3, R.drawable.ic_trianglepink2);
         graphicsMap.put(4, R.drawable.ic_trianglepurple);
         graphicsMap.put(5, R.drawable.ic_trianglewild);
+        WILDCARD_INDEX = graphicsMap.size() - 1;
     }
 
     @DrawableRes
