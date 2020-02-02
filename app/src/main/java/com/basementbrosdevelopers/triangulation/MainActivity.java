@@ -142,6 +142,13 @@ public class MainActivity extends AppCompatActivity {
             if (energy.canSwapSquares()) {
                 squareSwapModel.setOrigin(y, x);
                 redraw();
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("Not enough energy")
+                        .setMessage("Create more single color squares to gain energy.")
+                        .setPositiveButton("Ok", null)
+                        .create()
+                        .show();
             }
             return true;
         });
