@@ -7,10 +7,13 @@ import static com.basementbrosdevelopers.triangulation.NumberUtilsKt.filterOutWi
 
 public class LocationMatrix {
 
+    public static final double CHANCE_OF_GETTING_HELP = .2;
+    public static final int GAME_BOARD_HEIGHT = 6;
+    public static final int GAME_BOARD_WIDTH = 4;
     public final Square[][] matrix;
 
     public LocationMatrix() {
-        matrix = new Square[6][4];
+        matrix = new Square[GAME_BOARD_HEIGHT][GAME_BOARD_WIDTH];
         for (int j = 0; j < matrix.length; j++) {
             Square[] row = matrix[j];
             for (int i = 0; i < row.length; i++) {
@@ -29,7 +32,7 @@ public class LocationMatrix {
 
     public Square biasedSquare(int j, int i) {
         Square newSquare = new Square();
-        if (Math.random() < .2) {
+        if (Math.random() < CHANCE_OF_GETTING_HELP) {
             newSquare.setLeft(matrix[j][i-1].getRight());
             newSquare.newRightTriangle();
         }

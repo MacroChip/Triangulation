@@ -30,12 +30,12 @@ public class Square {
         return right;
     }
 
-    public void setLeft(int x) {
-        left = x;
+    public void setLeft(int newLeft) {
+        left = newLeft;
     }
 
-    public void setRight(int x) {
-        right = x;
+    public void setRight(int newRight) {
+        right = newRight;
     }
 
     public void newLeftTriangle() {
