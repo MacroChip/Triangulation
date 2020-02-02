@@ -131,8 +131,4 @@ public class LocationMatrix {
         matrix[jOrigin][iOrigin] = matrix[jDestination][iDestination];
         matrix[jDestination][iDestination] = temp;
     }
-
-    public boolean isInGridlock() {
-        return false;
-    }
 }

@@ -1,6 +1,7 @@
 package com.basementbrosdevelopers.triangulation;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import androidx.annotation.RawRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int DO_NOT_WAIT = 0;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Energy energy;
     private LocationMatrix locationMatrix;
     private Vibrator vibrator;
+    private SquareSwapModel squareSwapModel = new SquareSwapModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,15 +110,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createSquare(LinearLayout linearLayout, Square square, int y, int x) {
-        FrameLayout frame = new FrameLayout(this);
+        FrameLayout frame = makeFrameLayout(y, x);
         ImageView leftTriangle = createTriangle(frame, square.getLeft(), y, x);
         leftTriangle.setRotation(180f);
         createTriangle(frame, square.getRight(), y, x);
         linearLayout.addView(frame);
     }
 
-    private void createInvertedSquare(LinearLayout linearLayout, Square square, int y, int x) {
+    @NotNull
+    private FrameLayout makeFrameLayout(int y, int x) {
         FrameLayout frame = new FrameLayout(this);
+        if (squareSwapModel.getJOrigin() == y && squareSwapModel.getIOrigin() == x) {
+            frame.setBackgroundColor(Color.MAGENTA);
+        }
+        return frame;
+    }
+
+    private void createInvertedSquare(LinearLayout linearLayout, Square square, int y, int x) {
+        FrameLayout frame = makeFrameLayout(y, x);
         ImageView leftTriangle = createTriangle(frame, square.getLeft(), y, x);
         leftTriangle.setRotation(90f);
         ImageView rightTriangle = createTriangle(frame, square.getRight(), y, x);
@@ -125,14 +138,24 @@ public class MainActivity extends AppCompatActivity {
     private ImageView createTriangle(ViewGroup parentView, int triangleValue, int y, int x) {
         ImageView triangle = new ImageView(this);
         triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
+        triangle.setOnLongClickListener(v -> {
+            squareSwapModel.setOrigin(y, x);
+            redraw();
+            return true;
+        });
         triangle.setOnClickListener(v -> {
             Log.d(MainActivity.this.getClass().toString(), "Clicking x: " + x + ", y: " + y);
+            if (squareSwapModel.hasOriginSet()) {
+                locationMatrix.swap(squareSwapModel.getJOrigin(), squareSwapModel.getIOrigin(), y, x);
+                checkAfterSwapConditions(y, x);
+                checkAfterSwapConditions(squareSwapModel.getJOrigin(), squareSwapModel.getIOrigin());
+                squareSwapModel.clearOrigin();
+                redraw();
+                return;
+            }
             giveTapFeedback();
             locationMatrix.matrix[y][x].swap();
             checkAfterSwapConditions(y, x);
-            if (locationMatrix.isInGridlock()) {
-                Log.i(MainActivity.this.getClass().toString(), "Gridlocked!");
-            }
             redraw();
         });
         parentView.addView(triangle);
