@@ -28,9 +28,9 @@ public class LocationMatrix {
     }
 
     public void checkRightRhombus(int j, int i) {
-        if (i < matrix[0].length) {
+        if (i < matrix[0].length - 1) {
             if (j % 2 == i % 2) {
-                if (j < matrix.length) {
+                if (j < matrix.length - 1) {
                     int o = matrix[j][i].getRight();
                     int x = matrix[j][i + 1].getLeft();
                     int y = matrix[j + 1][i].getRight();
@@ -69,7 +69,7 @@ public class LocationMatrix {
                     }
                 }
             } else {
-                if (j < matrix.length) {
+                if (j < matrix.length - 1) {
                     int o = matrix[j][i].getLeft();
                     int x = matrix[j][i - 1].getRight();
                     int y = matrix[j + 1][i].getLeft();
