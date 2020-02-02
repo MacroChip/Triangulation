@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new AlertDialog.Builder(this)
+                .setTitle("Instructions")
+                .setMessage("Make a square with four triangles of the same color. Tap a triangle to swap it with its partner triangle.")
+                .setPositiveButton("Start", null)
+                .create()
+                .show();
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         locationMatrix = new LocationMatrix();
         Log.d(getClass().toString(), locationMatrix.toString());
