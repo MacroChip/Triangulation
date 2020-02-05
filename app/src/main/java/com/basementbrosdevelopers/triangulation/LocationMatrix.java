@@ -16,12 +16,9 @@ public class LocationMatrix {
         matrix = new Square[GAME_BOARD_HEIGHT][GAME_BOARD_WIDTH];
         for (int j = 0; j < matrix.length; j++) {
             Square[] row = matrix[j];
-            for (int i = 0; i < row.length; i++) {
-                if (i > 0) {
-                    row[i] = biasedSquare(j, i);
-                } else {
-                    row[i] = new Square();
-                }
+            row[0] = new Square();
+            for (int i = 1; i < row.length; i++) {
+                row[i] = biasedSquare(j, i);
             }
         }
     }
