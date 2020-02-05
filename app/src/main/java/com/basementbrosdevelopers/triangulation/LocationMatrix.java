@@ -33,7 +33,7 @@ public class LocationMatrix {
     public Square biasedSquare(int j, int i) {
         Square newSquare = new Square();
         if (Math.random() < CHANCE_OF_GETTING_HELP) {
-            newSquare.setLeft(matrix[j][i-1].getRight());
+            newSquare.setLeft(matrix[j][i - 1].getRight());
             newSquare.newRightTriangle();
         }
         return newSquare;
@@ -145,5 +145,9 @@ public class LocationMatrix {
         Square temp = matrix[jOrigin][iOrigin];
         matrix[jOrigin][iOrigin] = matrix[jDestination][iDestination];
         matrix[jDestination][iDestination] = temp;
+    }
+
+    public boolean isInGridlock() {
+        return GridlockDetectorKt.isInGridlock(matrix);
     }
 }
