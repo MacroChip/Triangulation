@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void newGame() {
         locationMatrix = new LocationMatrix();
+        energy = new Energy();
+        squareSwapModel = new SquareSwapModel();
+        scoreboard = new Scoreboard();
         Log.d(getClass().toString(), locationMatrix.toString());
         redraw();
     }
