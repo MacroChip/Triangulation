@@ -1,14 +1,15 @@
 package com.basementbrosdevelopers.triangulation;
 
-import android.util.SparseIntArray;
-
 import androidx.annotation.DrawableRes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GraphicsManager {
 
     public static final int WILDCARD_INDEX;
 
-    private static final SparseIntArray graphicsMap = new SparseIntArray();
+    private static final Map<Integer, Integer> graphicsMap = new HashMap<>(); // Need to provide a SparseIntArray in JVM tests
 
     static {
         graphicsMap.put(0, R.drawable.ic_triangleblue2);
