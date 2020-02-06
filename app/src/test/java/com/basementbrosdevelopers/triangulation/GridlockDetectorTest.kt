@@ -50,4 +50,13 @@ class GridlockDetectorTest {
 
         expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
     }
+
+    @Test
+    fun `square pair below you must have the same winnable number as you for a square to be winnable`() {
+        val matrix = arrayOf(
+                arrayOf(Square(1, 1), Square(1, 1)),
+                arrayOf(Square(2, 2), Square(2, 2))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isTrue()
+    }
 }
