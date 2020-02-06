@@ -12,12 +12,12 @@ public class GraphicsManager {
     private static final Map<Integer, Integer> graphicsMap = new HashMap<>(); // Need to provide a SparseIntArray in JVM tests
 
     static {
-        graphicsMap.put(0, R.drawable.ic_triangleblue2);
-        graphicsMap.put(1, R.drawable.ic_trianglegreen1);
-        graphicsMap.put(2, R.drawable.ic_triangleorange);
-        graphicsMap.put(3, R.drawable.ic_trianglepink2);
-        graphicsMap.put(4, R.drawable.ic_trianglepurple);
-        graphicsMap.put(5, R.drawable.ic_trianglewild);
+        graphicsMap.put(0, R.drawable.ic_triangleroundedblue1);
+        graphicsMap.put(1, R.drawable.ic_triangleroundedblue2);
+        graphicsMap.put(2, R.drawable.ic_triangleroundedgold);
+        graphicsMap.put(3, R.drawable.ic_triangleroundedgreen);
+        graphicsMap.put(4, R.drawable.ic_triangleroundedgrey);
+        graphicsMap.put(5, R.drawable.ic_triangleroundedwild);
         WILDCARD_INDEX = graphicsMap.size() - 1;
     }
 
