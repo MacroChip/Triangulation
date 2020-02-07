@@ -7,7 +7,7 @@ private const val NOT_WINNABLE = -1
 class GridlockDetector {
 
     fun isInGridlock(matrix: Array<Array<Square>>): Boolean {
-        var rowResults: Array<Array<Int>> = Array(matrix.size) { arrayOf<Int>() }
+        val rowResults: Array<Array<Int>> = Array(matrix.size) { arrayOf<Int>() }
         matrix.forEachIndexed { rowIndex, row ->
             val pairResult: Array<Int> = Array(row.size - 1) { NOT_WINNABLE }
             row.forEachIndexed(fun(index: Int, square: Square) {
@@ -39,7 +39,9 @@ class GridlockDetector {
     private fun squarePairsWinnable(rowResults: Array<Array<Int>>): Boolean {
         val allSquarePairPairs = mutableListOf<Boolean>()
         rowResults.forEachIndexed { rowIndex, row ->
-            if (notAtBorder(row, rowIndex)) {
+            val notAtBorder = rowIndex < row.size //why is this border check different than the other one
+            println("not at a border: $notAtBorder")
+            if (notAtBorder) {
                 row.forEachIndexed { index, winnableNumber ->
                     val squarePairBelowMe = rowResults[rowIndex + 1][index]
                     val thisSquareWinnable = squarePairPairWinnable(winnableNumber, squarePairBelowMe)
