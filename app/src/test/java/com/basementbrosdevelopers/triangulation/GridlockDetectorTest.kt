@@ -113,7 +113,7 @@ class GridlockDetectorTest {
     @Test
     fun `not gridlocked when left has wildcard but right does not`() {
         val matrix = arrayOf(
-                arrayOf(Square(0, WILDCARD_INDEX), Square(0, 2)),
+                arrayOf(Square(4, WILDCARD_INDEX), Square(0, 2)),
                 arrayOf(Square(2, 1), Square(2, 3))
         )
         expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
@@ -126,6 +126,29 @@ class GridlockDetectorTest {
                 arrayOf(Square(2, 1), Square(2, 3))
         )
         expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
+    }
+
+    @Test
+    fun `4 wildcards on top but no winners on bottom`() {
+        val matrix = arrayOf(
+                arrayOf(Square(WILDCARD_INDEX, WILDCARD_INDEX), Square(WILDCARD_INDEX, WILDCARD_INDEX)),
+                arrayOf(Square(0, 2), Square(3, 4))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isTrue()
+    }
+
+    @Test
+    fun `2 left wildcards mean that either of the right side's triangles can win`() {
+        val matrix = arrayOf(
+                arrayOf(Square(1, 2), Square(WILDCARD_INDEX, WILDCARD_INDEX)),
+                arrayOf(Square(2, 2), Square(2, 2))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
+        val matrix2 = arrayOf(
+                arrayOf(Square(1, 2), Square(WILDCARD_INDEX, WILDCARD_INDEX)),
+                arrayOf(Square(1, 1), Square(1, 1))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix2)).isFalse()
     }
     //TODO: multiple options per square. i.e. 12, 12
 }
