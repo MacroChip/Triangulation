@@ -2,14 +2,16 @@ package com.basementbrosdevelopers.triangulation;
 
 public class Energy {
 
+    private static final int ENERGY_COST = 5;
+    public static final int ENERGY_GAIN = 1;
     private int energyLevel = 1;
 
     public void loseEnergy() {
-        energyLevel -= 1;
+        energyLevel -= ENERGY_COST;
     }
 
     public void gainEnergy() {
-        energyLevel += 1;
+        energyLevel += ENERGY_GAIN;
     }
 
     public int getEnergy() {
@@ -17,6 +19,6 @@ public class Energy {
     }
 
     public boolean canSwapSquares() {
-        return energyLevel > 0;
+        return energyLevel >= ENERGY_COST;
     }
 }
