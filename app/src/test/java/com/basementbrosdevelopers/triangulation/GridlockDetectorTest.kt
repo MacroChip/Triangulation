@@ -90,5 +90,14 @@ class GridlockDetectorTest {
         )
         expectThat(GridlockDetector().isInGridlock(matrix)).isTrue()
     }
+
+    @Test
+    fun `board gridlocked because winning squares don't line up`() {
+        val matrix = arrayOf(
+                arrayOf(Square(0, 1), Square(2, 3), Square(3, 4), Square(2, 0)),
+                arrayOf(Square(0, 1), Square(2, 3), Square(3, 4), Square(2, 0))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isTrue()
+    }
     //TODO: multiple options per square. i.e. 12, 12
 }

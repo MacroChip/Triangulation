@@ -45,9 +45,11 @@ class GridlockDetector {
         rowResults.forEachIndexed { rowIndex, row ->
             if (notAtBorder(matrixSize, rowIndex)) {
                 row.forEachIndexed { index, winnableNumber ->
-                    val squarePairBelowMe = rowResults[rowIndex + 1][index]
-                    val thisSquareWinnable = squarePairPairWinnable(winnableNumber, squarePairBelowMe)
-                    allSquarePairPairs.add(thisSquareWinnable)
+                    if ((rowIndex % 2 == 0 && index % 2 == 0) || (rowIndex % 2 == 1 && index % 2 == 1)) {
+                        val squarePairBelowMe = rowResults[rowIndex + 1][index]
+                        val thisSquareWinnable = squarePairPairWinnable(winnableNumber, squarePairBelowMe)
+                        allSquarePairPairs.add(thisSquareWinnable)
+                    }
                 }
             }
         }
