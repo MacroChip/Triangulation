@@ -84,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d(getClass().getName(), locationMatrix.toString());
             return true;
         }
+        if (item.getItemId() == R.id.give_energy) {
+            energy.gainEnergy();
+            redraw();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
