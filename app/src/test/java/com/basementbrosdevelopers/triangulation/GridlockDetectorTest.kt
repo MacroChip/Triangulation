@@ -99,5 +99,14 @@ class GridlockDetectorTest {
         )
         expectThat(GridlockDetector().isInGridlock(matrix)).isTrue()
     }
+
+    @Test
+    fun `bug where I thought filter took things out, not kept them`() {
+        val matrix = arrayOf(
+                arrayOf(Square(0, 1), Square(5, 0)),
+                arrayOf(Square(2, 1), Square(2, 3))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isTrue()
+    }
     //TODO: multiple options per square. i.e. 12, 12
 }
