@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 new AlertDialog.Builder(this)
                         .setTitle("Not enough energy")
-                        .setMessage("Create more single color squares to gain energy.")
+                        .setMessage("You need " + Energy.ENERGY_COST + " energy to swap squares. Create more single color squares to gain energy.")
                         .setPositiveButton("Ok", null)
                         .create()
                         .show();

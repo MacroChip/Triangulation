@@ -2,7 +2,7 @@ package com.basementbrosdevelopers.triangulation;
 
 public class Energy {
 
-    private static final int ENERGY_COST = 5;
+    public static final int ENERGY_COST = 5;
     public static final int ENERGY_GAIN = 1;
     private int energyLevel = 1;
 
