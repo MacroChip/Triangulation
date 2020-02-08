@@ -16,14 +16,14 @@ class GridlockDetector {
     }
 
     private fun findPairCombosForSquaresInRow(row: Array<Square>): Array<Int> {
-        val pairResult: Array<Int> = Array(row.size - 1) { NOT_WINNABLE }
+        val pairResults: Array<Int> = Array(row.size - 1) { NOT_WINNABLE }
         row.forEachIndexed { index, square ->
             if (notAtBorder(row.size, index)) {
                 val nextSquare = row[index + 1]
-                pairResult[index] = pairWinnability(square, nextSquare)
+                pairResults[index] = pairWinnability(square, nextSquare)
             }
         }
-        return pairResult
+        return pairResults
     }
 
     private fun pairWinnability(square: Square, nextSquare: Square): Int {
