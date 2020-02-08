@@ -9,17 +9,21 @@ class GridlockDetector {
     fun isInGridlock(matrix: Array<Array<Square>>): Boolean {
         val rowResults: Array<Array<Int>> = Array(matrix.size) { arrayOf<Int>() }
         matrix.forEachIndexed { rowIndex, row ->
-            val pairResult: Array<Int> = Array(row.size - 1) { NOT_WINNABLE }
-            row.forEachIndexed(fun(index: Int, square: Square) {
-                if (notAtBorder(row.size, index)) {
-                    val nextSquare = row[index + 1]
-                    pairResult[index] = pairWinnability(square, nextSquare)
-                }
-            })
-            rowResults[rowIndex] = pairResult
+            rowResults[rowIndex] = findPairCombosForSquaresInRow(row)
         }
         println("Row results ${rowResults.contentDeepToString()}")
         return !squarePairsWinnable(rowResults, matrix.size)
+    }
+
+    private fun findPairCombosForSquaresInRow(row: Array<Square>): Array<Int> {
+        val pairResult: Array<Int> = Array(row.size - 1) { NOT_WINNABLE }
+        row.forEachIndexed { index, square ->
+            if (notAtBorder(row.size, index)) {
+                val nextSquare = row[index + 1]
+                pairResult[index] = pairWinnability(square, nextSquare)
+            }
+        }
+        return pairResult
     }
 
     private fun pairWinnability(square: Square, nextSquare: Square): Int {
