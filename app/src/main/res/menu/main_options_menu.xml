@@ -6,4 +6,7 @@
     <item
         android:id="@+id/instructions"
         android:title="@string/instructions" />
+    <item
+        android:id="@+id/dump_matrix"
+        android:title="Log game board" />
 </menu>

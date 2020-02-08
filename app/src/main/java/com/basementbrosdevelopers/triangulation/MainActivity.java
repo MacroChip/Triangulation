@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
             showInstructions();
             return true;
         }
+        if (item.getItemId() == R.id.dump_matrix) {
+            Log.d(getClass().getName(), locationMatrix.toString());
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
