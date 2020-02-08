@@ -1,5 +1,6 @@
 package com.basementbrosdevelopers.triangulation
 
+import com.basementbrosdevelopers.triangulation.GraphicsManager.WILDCARD_INDEX
 import org.junit.Test
 import strikt.api.expectThat
 import strikt.assertions.isFalse
@@ -103,10 +104,28 @@ class GridlockDetectorTest {
     @Test
     fun `bug where I thought filter took things out, not kept them`() {
         val matrix = arrayOf(
-                arrayOf(Square(0, 1), Square(5, 0)),
+                arrayOf(Square(0, 1), Square(WILDCARD_INDEX, 0)),
                 arrayOf(Square(2, 1), Square(2, 3))
         )
         expectThat(GridlockDetector().isInGridlock(matrix)).isTrue()
+    }
+
+    @Test
+    fun `not gridlocked when left has wildcard but right does not`() {
+        val matrix = arrayOf(
+                arrayOf(Square(0, WILDCARD_INDEX), Square(0, 2)),
+                arrayOf(Square(2, 1), Square(2, 3))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
+    }
+
+    @Test
+    fun `4 wildcards`() {
+        val matrix = arrayOf(
+                arrayOf(Square(WILDCARD_INDEX, WILDCARD_INDEX), Square(WILDCARD_INDEX, WILDCARD_INDEX)),
+                arrayOf(Square(2, 1), Square(2, 3))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
     }
     //TODO: multiple options per square. i.e. 12, 12
 }

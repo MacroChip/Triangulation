@@ -35,9 +35,17 @@ class GridlockDetector {
     }
 
     private fun nonWildcardNumber(square: Square, nextSquare: Square): Int {
-        //TODO: protect against 4 wildcard triangles
+        //TODO: protect against both squares having a wildcard
         //TODO: return both sides of the non-wildcard square because either of the triangles could pair with the triangle
-        return listOf(square, nextSquare).filter { it.left != WILDCARD_INDEX && it.right != WILDCARD_INDEX }[0].left
+        val bothSquares = listOf(square, nextSquare)
+        val isAllWildcards = bothSquares
+                .map { listOf(it.left, it.right) }
+                .flatten()
+                .none { it != WILDCARD_INDEX }
+        if (isAllWildcards) {
+            return WILDCARD_INDEX
+        }
+        return bothSquares.filter { it.left != WILDCARD_INDEX && it.right != WILDCARD_INDEX }[0].left
     }
 
     private fun squarePairsWinnable(rowResults: Array<Array<Int>>, matrixSize: Int): Boolean {
