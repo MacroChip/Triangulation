@@ -1,5 +1,7 @@
 package com.basementbrosdevelopers.triangulation;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 import static com.basementbrosdevelopers.triangulation.NumberUtilsKt.areAllTheSame;
@@ -48,6 +50,7 @@ public class LocationMatrix {
         return new LocationMatrix(matrix);
     }
 
+    @NotNull
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder(" ").append("\n");

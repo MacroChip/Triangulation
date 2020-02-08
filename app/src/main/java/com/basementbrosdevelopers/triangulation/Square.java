@@ -1,5 +1,7 @@
 package com.basementbrosdevelopers.triangulation;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Square {
 
     private static final double HIGHEST_TRIANGLE_VALUE = 5.27;
@@ -56,6 +58,7 @@ public class Square {
         right = leftOriginal;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return left + "," + right;
