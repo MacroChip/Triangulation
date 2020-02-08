@@ -11,7 +11,7 @@ class GridlockDetector {
         matrix.forEachIndexed { rowIndex, row ->
             val pairResult: Array<Int> = Array(row.size - 1) { NOT_WINNABLE }
             row.forEachIndexed(fun(index: Int, square: Square) {
-                if (notAtBorder(row, index)) {
+                if (notAtBorder(row.size, index)) {
                     val nextSquare = row[index + 1]
                     pairResult[index] = pairWinnability(square, nextSquare)
                 }
@@ -19,7 +19,7 @@ class GridlockDetector {
             rowResults[rowIndex] = pairResult
         }
         println("Row results ${rowResults.contentDeepToString()}")
-        return !squarePairsWinnable(rowResults)
+        return !squarePairsWinnable(rowResults, matrix.size)
     }
 
     private fun pairWinnability(square: Square, nextSquare: Square): Int {
@@ -36,12 +36,10 @@ class GridlockDetector {
         return listOf(square, nextSquare).filter { it.left == WILDCARD_INDEX || it.right == WILDCARD_INDEX }[0].left
     }
 
-    private fun squarePairsWinnable(rowResults: Array<Array<Int>>): Boolean {
+    private fun squarePairsWinnable(rowResults: Array<Array<Int>>, matrixSize: Int): Boolean {
         val allSquarePairPairs = mutableListOf<Boolean>()
         rowResults.forEachIndexed { rowIndex, row ->
-            val notAtBorder = rowIndex < row.size //why is this border check different than the other one
-            println("not at a border: $notAtBorder")
-            if (notAtBorder) {
+            if (notAtBorder(matrixSize, rowIndex)) {
                 row.forEachIndexed { index, winnableNumber ->
                     val squarePairBelowMe = rowResults[rowIndex + 1][index]
                     val thisSquareWinnable = squarePairPairWinnable(winnableNumber, squarePairBelowMe)
@@ -57,12 +55,12 @@ class GridlockDetector {
 
     private fun squarePairPairWinnable(myPair: Int, squarePairBelowMe: Int): Boolean {
         if (myPair == NOT_WINNABLE || squarePairBelowMe == NOT_WINNABLE) {
+            println("not winnable")
             return false
         }
         val hasWildcard = myPair == WILDCARD_INDEX || squarePairBelowMe == WILDCARD_INDEX
         val isCurrentlyScoring = myPair == squarePairBelowMe //not sure if isCurrentlyScoring can happen because gridlock detection happens after scoring clears out scoring square pair squares
-        println("hasWildcard: $hasWildcard")
-        println("isCurrentlyScoring: $isCurrentlyScoring")
+        println("hasWildcard: $hasWildcard isCurrentlyScoring: $isCurrentlyScoring")
         return isCurrentlyScoring || hasWildcard
     }
 
@@ -70,8 +68,8 @@ class GridlockDetector {
         return listOf(left.left, left.right, right.left, right.right).contains(WILDCARD_INDEX)
     }
 
-    private fun notAtBorder(row: Array<out Any>, index: Int): Boolean {
-        return index + 1 < row.size
+    private fun notAtBorder(size: Int, index: Int): Boolean {
+        return index + 1 < size
     }
 
     private fun determineIfPairWinnable(left: Square, right: Square): Int { //TODO: this could return 1 or 2 numbers

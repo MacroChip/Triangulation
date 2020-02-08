@@ -46,6 +46,19 @@ class GridlockDetectorTest {
     }
 
     @Test
+    fun `not square tall board not gridlocked`() {
+        val matrix = arrayOf(
+                arrayOf(Square(0, 1), Square(2, 3)),
+                arrayOf(Square(0, 1), Square(2, 3)),
+                arrayOf(Square(0, 1), Square(2, 3)),
+                arrayOf(Square(0, 1), Square(2, 3)),
+                arrayOf(Square(1, 1), Square(1, 1)),
+                arrayOf(Square(1, 1), Square(1, 1))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
+    }
+
+    @Test
     fun `tall board gridlocked`() {
         val matrix = arrayOf(
                 arrayOf(Square(0, 1), Square(2, 3)),
