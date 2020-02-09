@@ -160,5 +160,13 @@ class GridlockDetectorTest {
         )
         expectThat(GridlockDetector().isInGridlock(matrix2)).isFalse()
     }
-    //TODO: multiple options per square. i.e. 12, 12
+
+    @Test
+    fun `multiple options for winning`() {
+        val matrix = arrayOf(
+                arrayOf(Square(3, 0), Square(0, 3)),
+                arrayOf(Square(0, 3), Square(0, 3))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
+    }
 }

@@ -3,8 +3,6 @@ package com.basementbrosdevelopers.triangulation.gridlockdetection
 import com.basementbrosdevelopers.triangulation.GraphicsManager.WILDCARD_INDEX
 import com.basementbrosdevelopers.triangulation.Square
 
-private const val NOT_WINNABLE = -1
-
 class GridlockDetector {
 
     fun isInGridlock(matrix: Array<Array<Square>>): Boolean {
@@ -17,7 +15,7 @@ class GridlockDetector {
     }
 
     private fun findPairCombosForSquaresInRow(row: Array<Square>): Array<List<Int>> {
-        val pairResults: Array<List<Int>> = Array(row.size - 1) { listOf(NOT_WINNABLE) }
+        val pairResults: Array<List<Int>> = Array(row.size - 1) { listOf<Int>() }
         row.forEachIndexed { index, square ->
             if (notAtBorder(row.size, index)) {
                 val nextSquare = row[index + 1]
@@ -55,7 +53,7 @@ class GridlockDetector {
     }
 
     private fun squarePairPairWinnable(myPairWinners: List<Int>, squarePairBelowMeWinners: List<Int>): Boolean {
-        if (myPairWinners[0] == NOT_WINNABLE || squarePairBelowMeWinners[0] == NOT_WINNABLE) {
+        if (myPairWinners.isEmpty() || squarePairBelowMeWinners.isEmpty()) {
             println("not winnable")
             return false
         }
@@ -83,14 +81,8 @@ class GridlockDetector {
         return index + 1 < size
     }
 
-    private fun determineIfPairWinnable(left: Square, right: Square): List<Int> { //TODO: this could return 1 or 2 numbers
-        if (left.left == right.left || left.left == right.right) {
-            return listOf(left.left)
-        } else if (left.right == right.left || left.right == right.right) {
-            return listOf(left.right)
-        } else {
-            return listOf(NOT_WINNABLE)
-        }
+    private fun determineIfPairWinnable(left: Square, right: Square): List<Int> {
+        return listOf(left.left, left.right).intersect(listOf(right.left, right.right)).toList()
     }
 }
 
