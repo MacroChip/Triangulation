@@ -1,5 +1,7 @@
 package com.basementbrosdevelopers.triangulation;
 
+import com.basementbrosdevelopers.triangulation.gridlockdetection.GridlockDetectorKt;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

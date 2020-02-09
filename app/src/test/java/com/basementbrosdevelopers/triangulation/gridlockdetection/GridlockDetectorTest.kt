@@ -1,6 +1,7 @@
-package com.basementbrosdevelopers.triangulation
+package com.basementbrosdevelopers.triangulation.gridlockdetection
 
 import com.basementbrosdevelopers.triangulation.GraphicsManager.WILDCARD_INDEX
+import com.basementbrosdevelopers.triangulation.Square
 import org.junit.Test
 import strikt.api.expectThat
 import strikt.assertions.isFalse
