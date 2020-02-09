@@ -114,9 +114,18 @@ class GridlockDetectorTest {
     fun `not gridlocked when left has wildcard but right does not`() {
         val matrix = arrayOf(
                 arrayOf(Square(4, WILDCARD_INDEX), Square(0, 2)),
-                arrayOf(Square(2, 1), Square(2, 3))
+                arrayOf(Square(2, 0), Square(0, 3))
         )
         expectThat(GridlockDetector().isInGridlock(matrix)).isFalse()
+    }
+
+    @Test
+    fun `wildcard doesn't necessarily mean you win`() {
+        val matrix = arrayOf(
+                arrayOf(Square(4, WILDCARD_INDEX), Square(2, 2)),
+                arrayOf(Square(2, 0), Square(0, 3))
+        )
+        expectThat(GridlockDetector().isInGridlock(matrix)).isTrue()
     }
 
     @Test
