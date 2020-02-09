@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
             locationMatrix.matrix[y][x].swap();
             checkAfterSwapConditions(y, x);
             redraw();
-            if (locationMatrix.isInGridlock()) { //TODO: Gridlock really only happens when energy is 0 as well
+            if (locationMatrix.isInGridlock() && energy.getEnergy() < Energy.ENERGY_COST) {
                 showGridlockedDialog();
             }
         });
