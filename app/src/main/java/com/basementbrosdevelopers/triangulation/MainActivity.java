@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
     public static final int VIBRATION_TIME = 15;
     public static final int DO_NOT_REPEAT = -1;
     private ViewGroup mainView;
+    private Vibrator vibrator;
     private Scoreboard scoreboard = new Scoreboard();
     private Energy energy = new Energy();
     private LocationMatrix locationMatrix;
-    private Vibrator vibrator;
     private SquareSwapModel squareSwapModel = new SquareSwapModel();
 
     @Override
@@ -208,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Energy: " + energy.getEnergy());
         mainView.removeAllViews();
         createView();
+        Log.d(getClass().toString(), locationMatrix.toString());
     }
 
     private void checkAfterSwapConditions(int y, int x) {
