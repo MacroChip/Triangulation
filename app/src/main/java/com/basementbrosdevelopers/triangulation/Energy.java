@@ -2,9 +2,9 @@ package com.basementbrosdevelopers.triangulation;
 
 public class Energy {
 
-    public static final int ENERGY_COST = 5;
+    public static final int ENERGY_COST = 3;
     public static final int ENERGY_GAIN = 1;
-    private int energyLevel = 1;
+    private int energyLevel = 3;
 
     public void loseEnergy() {
         energyLevel -= ENERGY_COST;
