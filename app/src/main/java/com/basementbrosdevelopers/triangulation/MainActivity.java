@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Energy energy;
     private LocationMatrix locationMatrix;
     private SquareSwapModel squareSwapModel;
+    private AlertDialog currentDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +76,12 @@ public class MainActivity extends AppCompatActivity {
         redraw();
     }
 
-    private void showInstructions() {
-        new AlertDialog.Builder(this)
-                .setTitle("Instructions")
-                .setMessage("Goal: Make a square with four triangles of the same color.\nHow to play: Tap a triangle to swap it with its partner triangle. Long tap a square to start a swap with another square, then choose the destination square. Square swapping requires energy but triangle swapping does not.")
-                .setPositiveButton("Start", null)
-                .create()
-                .show();
+    @Override
+    protected void onDestroy() {
+        if (currentDialog != null) {
+            currentDialog.dismiss();
+        }
+        super.onDestroy();
     }
 
     private void newGame() {
@@ -192,12 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 squareSwapModel.setOrigin(y, x);
                 redraw();
             } else {
-                new AlertDialog.Builder(this)
-                        .setTitle("Not enough energy")
-                        .setMessage("You need " + Energy.ENERGY_COST + " energy to swap squares. Create more single color squares to gain energy.")
-                        .setPositiveButton("Ok", null)
-                        .create()
-                        .show();
+                showNotEnoughEnergyDialog();
             }
             return true;
         });
@@ -224,13 +219,31 @@ public class MainActivity extends AppCompatActivity {
         return triangle;
     }
 
+    private void showNotEnoughEnergyDialog() {
+        currentDialog = new AlertDialog.Builder(this)
+                .setTitle("Not enough energy")
+                .setMessage("You need " + Energy.ENERGY_COST + " energy to swap squares. Create more single color squares to gain energy.")
+                .setPositiveButton("Ok", null)
+                .create();
+        currentDialog.show();
+    }
+
     private void showGridlockedDialog() {
-        new AlertDialog.Builder(this)
+        currentDialog = new AlertDialog.Builder(this)
                 .setTitle("Game Over")
                 .setMessage("Good game! There are no combinations of triangles that can lead to a scoring square.")
                 .setPositiveButton(R.string.new_game, (dialog, which) -> newGame())
-                .create()
-                .show();
+                .create();
+        currentDialog.show();
+    }
+
+    private void showInstructions() {
+        currentDialog = new AlertDialog.Builder(this)
+                .setTitle("Instructions")
+                .setMessage("Goal: Make a square with four triangles of the same color.\nHow to play: Tap a triangle to swap it with its partner triangle. Long tap a square to start a swap with another square, then choose the destination square. Square swapping requires energy but triangle swapping does not.")
+                .setPositiveButton("Start", null)
+                .create();
+        currentDialog.show();
     }
 
     private void redraw() {
