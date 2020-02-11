@@ -4,6 +4,7 @@ public class Energy {
 
     public static final int ENERGY_COST = 3;
     public static final int ENERGY_GAIN = 1;
+    public static final String SERIALIZATION_KEY = "energy";
     private int energyLevel = 3;
 
     public void loseEnergy() {

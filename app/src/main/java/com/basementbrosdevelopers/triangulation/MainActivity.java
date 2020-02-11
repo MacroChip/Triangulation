@@ -1,6 +1,7 @@
 package com.basementbrosdevelopers.triangulation;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -21,6 +22,8 @@ import androidx.annotation.RawRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,12 +31,14 @@ public class MainActivity extends AppCompatActivity {
     public static final int DO_NOT_WAIT = 0;
     public static final int VIBRATION_TIME = 15;
     public static final int DO_NOT_REPEAT = -1;
+    private static final String SHARED_PREFERENCES_NAME = "game_state";
+    private Gson gson = new Gson();
     private ViewGroup mainView;
     private Vibrator vibrator;
-    private Scoreboard scoreboard = new Scoreboard();
-    private Energy energy = new Energy();
+    private Scoreboard scoreboard;
+    private Energy energy;
     private LocationMatrix locationMatrix;
-    private SquareSwapModel squareSwapModel = new SquareSwapModel();
+    private SquareSwapModel squareSwapModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,31 @@ public class MainActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mainView = findViewById(R.id.main);
         newGame();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(getClass().getName(), "saving state");
+        getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+                .edit()
+                .putString(Scoreboard.SERIALIZATION_KEY, gson.toJson(scoreboard))
+                .putString(Energy.SERIALIZATION_KEY, gson.toJson(energy))
+                .putString(LocationMatrix.SERIALIZATION_KEY, gson.toJson(locationMatrix))
+                .putString(SquareSwapModel.SERIALIZATION_KEY, gson.toJson(squareSwapModel))
+                .apply();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        scoreboard = gson.fromJson(sharedPreferences.getString(Scoreboard.SERIALIZATION_KEY, null), Scoreboard.class);
+        energy = gson.fromJson(sharedPreferences.getString(Energy.SERIALIZATION_KEY, null), Energy.class);
+        locationMatrix = gson.fromJson(sharedPreferences.getString(LocationMatrix.SERIALIZATION_KEY, null), LocationMatrix.class);
+        squareSwapModel = gson.fromJson(sharedPreferences.getString(SquareSwapModel.SERIALIZATION_KEY, null), SquareSwapModel.class);
+        Log.d(getClass().getName(), "Restored matrix: " + locationMatrix);
+        redraw();
     }
 
     private void showInstructions() {
@@ -59,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         energy = new Energy();
         squareSwapModel = new SquareSwapModel();
         scoreboard = new Scoreboard();
-        Log.d(getClass().toString(), locationMatrix.toString());
         redraw();
     }
 

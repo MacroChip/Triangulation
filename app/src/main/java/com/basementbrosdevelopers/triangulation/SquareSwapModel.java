@@ -1,6 +1,7 @@
 package com.basementbrosdevelopers.triangulation;
 
 public class SquareSwapModel {
+    public static final String SERIALIZATION_KEY = "square_swap_model";
     private int y = -1;
     private int x = -1;
 

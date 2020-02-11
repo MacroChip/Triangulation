@@ -14,6 +14,7 @@ public class LocationMatrix {
     public static final double CHANCE_OF_GETTING_HELP = .2;
     public static final int GAME_BOARD_HEIGHT = 6;
     public static final int GAME_BOARD_WIDTH = 4;
+    public static final String SERIALIZATION_KEY = "location_matrix";
     public final Square[][] matrix;
 
     public LocationMatrix() {
