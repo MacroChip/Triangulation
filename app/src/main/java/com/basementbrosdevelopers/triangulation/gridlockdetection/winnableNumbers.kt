@@ -18,27 +18,25 @@ fun winnableNumbers(square: Square, nextSquare: Square): List<Int> {
     println("leftSquareHasWildcard: $leftSquareHasWildcard rightSquareHasWildcard: $rightSquareHasWildcard")
     val winnableNumbers = mutableListOf<Int>()
     if (leftSquareHasWildcard) {
-        val winnableNumberLeft = winnableNumber(square) //could still be wildcard
-        val leftIsTwoWildcards = winnableNumberLeft == WILDCARD_INDEX
-        winnableNumbers.addAll(listOf(nextSquare.left, nextSquare.right))
-        if (!leftIsTwoWildcards) {
-            if (nextSquare.left == winnableNumberLeft || nextSquare.right == winnableNumberLeft) {
-                winnableNumbers.add(winnableNumberLeft)
-            }
-        }
+        winnableNumbers.addAll(winnableNumbersAccountingForWildcard(square, nextSquare))
     }
     if (rightSquareHasWildcard) {
-        val winnableNumberRight = winnableNumber(nextSquare) //could still be wildcard
-        val rightIsTwoWildcards = winnableNumberRight == WILDCARD_INDEX
-        winnableNumbers.addAll(listOf(square.left, square.right))
-        if (!rightIsTwoWildcards) {
-            if (square.left == winnableNumberRight || square.right == winnableNumberRight) {
-                winnableNumbers.add(winnableNumberRight)
-            }
-        }
+        winnableNumbers.addAll(winnableNumbersAccountingForWildcard(nextSquare, square))
     }
     if (rightSquareHasWildcard && leftSquareHasWildcard) {
         winnableNumbers.add(WILDCARD_INDEX)
+    }
+    return winnableNumbers
+}
+
+private fun winnableNumbersAccountingForWildcard(thisSide: Square, otherSide: Square): List<Int> {
+    val winnableNumberRight = winnableNumber(thisSide) //could still be wildcard
+    val rightIsTwoWildcards = winnableNumberRight == WILDCARD_INDEX
+    val winnableNumbers = mutableListOf(otherSide.left, otherSide.right)
+    if (!rightIsTwoWildcards) {
+        if (otherSide.left == winnableNumberRight || otherSide.right == winnableNumberRight) {
+            winnableNumbers.add(winnableNumberRight)
+        }
     }
     return winnableNumbers
 }
