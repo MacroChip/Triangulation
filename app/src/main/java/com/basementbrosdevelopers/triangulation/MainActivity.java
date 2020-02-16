@@ -21,6 +21,7 @@ import androidx.annotation.RawRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.basementbrosdevelopers.triangulation.squareswapping.SelectedTriangleShrinkAnimation;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int VIBRATION_TIME = 15;
     public static final int DO_NOT_REPEAT = -1;
     private static final String SHARED_PREFERENCES_NAME = "game_state";
-    public static final float SELECTED_TRIANGLE_SCALING = 0.85f;
     private Gson gson = new Gson();
+    private int animationDuration;
     private ViewGroup mainView;
     private Vibrator vibrator;
     private Scoreboard scoreboard;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         showInstructions();
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mainView = findViewById(R.id.main);
+        animationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
         newGame();
     }
 
@@ -169,10 +171,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void shrinkIfSelected(int y, int x, ImageView leftTriangle, ImageView rightTriangle) {
         if (squareSwapModel.getJOrigin() == y && squareSwapModel.getIOrigin() == x) {
-            leftTriangle.setScaleX(SELECTED_TRIANGLE_SCALING);
-            leftTriangle.setScaleY(SELECTED_TRIANGLE_SCALING);
-            rightTriangle.setScaleX(SELECTED_TRIANGLE_SCALING);
-            rightTriangle.setScaleY(SELECTED_TRIANGLE_SCALING);
+            new SelectedTriangleShrinkAnimation(animationDuration, leftTriangle).play();
+            new SelectedTriangleShrinkAnimation(animationDuration, rightTriangle).play();
         }
     }
 
