@@ -2,7 +2,6 @@ package com.basementbrosdevelopers.triangulation;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int VIBRATION_TIME = 15;
     public static final int DO_NOT_REPEAT = -1;
     private static final String SHARED_PREFERENCES_NAME = "game_state";
+    public static final float SELECTED_TRIANGLE_SCALING = 0.85f;
     private Gson gson = new Gson();
     private ViewGroup mainView;
     private Vibrator vibrator;
@@ -162,15 +162,25 @@ public class MainActivity extends AppCompatActivity {
         FrameLayout frame = makeFrameLayout(y, x);
         ImageView leftTriangle = createTriangle(frame, square.getLeft(), y, x);
         leftTriangle.setRotation(180f);
-        createTriangle(frame, square.getRight(), y, x);
+        ImageView rightTriangle = createTriangle(frame, square.getRight(), y, x);
+        shrinkIfSelected(y, x, leftTriangle, rightTriangle);
         linearLayout.addView(frame);
+    }
+
+    private void shrinkIfSelected(int y, int x, ImageView leftTriangle, ImageView rightTriangle) {
+        if (squareSwapModel.getJOrigin() == y && squareSwapModel.getIOrigin() == x) {
+            leftTriangle.setScaleX(SELECTED_TRIANGLE_SCALING);
+            leftTriangle.setScaleY(SELECTED_TRIANGLE_SCALING);
+            rightTriangle.setScaleX(SELECTED_TRIANGLE_SCALING);
+            rightTriangle.setScaleY(SELECTED_TRIANGLE_SCALING);
+        }
     }
 
     @NotNull
     private FrameLayout makeFrameLayout(int y, int x) {
         FrameLayout frame = new FrameLayout(this);
         if (squareSwapModel.getJOrigin() == y && squareSwapModel.getIOrigin() == x) {
-            frame.setBackgroundColor(Color.MAGENTA);
+            frame.setBackgroundResource(R.drawable.ic_triangleroundedsquareselect);
         }
         return frame;
     }
@@ -181,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         leftTriangle.setRotation(90f);
         ImageView rightTriangle = createTriangle(frame, square.getRight(), y, x);
         rightTriangle.setRotation(-90f);
+        shrinkIfSelected(y, x, leftTriangle, rightTriangle);
         linearLayout.addView(frame);
     }
 
