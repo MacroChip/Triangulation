@@ -265,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkAfterSwapConditions(int y, int x) {
+        Log.d(getClass().getName(), "Checking score condition y: " + y + " x: " + x);
         boolean leftConditionMet = locationMatrix.checkLeftRhombus(y, x);
         if (leftConditionMet) {
             locationMatrix.replaceLeftRhombus(y, x);
