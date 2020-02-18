@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(getClass().getName(), "saving state");
         getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
