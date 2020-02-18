@@ -212,14 +212,12 @@ public class MainActivity extends AppCompatActivity {
             if (squareSwapModel.hasOriginSet()) {
                 locationMatrix.swap(squareSwapModel.getJOrigin(), squareSwapModel.getIOrigin(), y, x);
                 energy.loseEnergy();
-                checkAfterSwapConditions(y, x);
                 checkAfterSwapConditions(squareSwapModel.getJOrigin(), squareSwapModel.getIOrigin());
                 squareSwapModel.clearOrigin();
-                redraw();
-                return;
+            } else {
+                locationMatrix.matrix[y][x].swap();
             }
             giveTapFeedback();
-            locationMatrix.matrix[y][x].swap();
             checkAfterSwapConditions(y, x);
             redraw();
             if (locationMatrix.isInGridlock() && energy.getEnergy() < Energy.ENERGY_COST) {
