@@ -1,6 +1,7 @@
 package com.basementbrosdevelopers.triangulation;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -18,13 +19,16 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RawRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.basementbrosdevelopers.triangulation.squareswapping.SelectedTriangleShrinkAnimation;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+
+import static com.basementbrosdevelopers.triangulation.DialogsKt.showGridlockedDialog;
+import static com.basementbrosdevelopers.triangulation.DialogsKt.showInstructions;
+import static com.basementbrosdevelopers.triangulation.DialogsKt.showNotEnoughEnergyDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
     private Energy energy;
     private LocationMatrix locationMatrix;
     private SquareSwapModel squareSwapModel;
-    private AlertDialog currentDialog;
+    private DialogInterface currentDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        showInstructions();
+        currentDialog = showInstructions(this);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mainView = findViewById(R.id.main);
         animationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.instructions) {
-            showInstructions();
+            currentDialog = showInstructions(this);
             return true;
         }
         if (item.getItemId() == R.id.dump_matrix) {
@@ -203,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                 squareSwapModel.setOrigin(y, x);
                 redraw();
             } else {
-                showNotEnoughEnergyDialog();
+                currentDialog = showNotEnoughEnergyDialog(this);
             }
             return true;
         });
@@ -221,38 +225,11 @@ public class MainActivity extends AppCompatActivity {
             checkAfterSwapConditions(y, x);
             redraw();
             if (locationMatrix.isInGridlock() && energy.getEnergy() < Energy.ENERGY_COST) {
-                showGridlockedDialog();
+                currentDialog = showGridlockedDialog(this, (dialog, button) -> newGame());
             }
         });
         parentView.addView(triangle);
         return triangle;
-    }
-
-    private void showNotEnoughEnergyDialog() {
-        currentDialog = new AlertDialog.Builder(this)
-                .setTitle("Not enough energy")
-                .setMessage("You need " + Energy.ENERGY_COST + " energy to swap squares. Create more single color squares to gain energy.")
-                .setPositiveButton("Ok", null)
-                .create();
-        currentDialog.show();
-    }
-
-    private void showGridlockedDialog() {
-        currentDialog = new AlertDialog.Builder(this)
-                .setTitle("Game Over")
-                .setMessage("Good game! There are no combinations of triangles that can lead to a scoring square.")
-                .setPositiveButton(R.string.new_game, (dialog, which) -> newGame())
-                .create();
-        currentDialog.show();
-    }
-
-    private void showInstructions() {
-        currentDialog = new AlertDialog.Builder(this)
-                .setTitle("Instructions")
-                .setMessage("Goal: Make a square with four triangles of the same color.\nHow to play: Tap a triangle to swap it with its partner triangle. Long tap a square to start a swap with another square, then choose the destination square. Square swapping requires energy but triangle swapping does not.")
-                .setPositiveButton("Start", null)
-                .create();
-        currentDialog.show();
     }
 
     private void redraw() {
