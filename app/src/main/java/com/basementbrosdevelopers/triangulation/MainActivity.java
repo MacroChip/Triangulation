@@ -203,7 +203,10 @@ public class MainActivity extends AppCompatActivity {
         ImageView triangle = new ImageView(this);
         triangle.setImageResource(GraphicsManager.getDrawableId(triangleValue));
         triangle.setOnLongClickListener(v -> {
-            if (energy.canSwapSquares()) {
+            if (squareSwapModel.getJOrigin() == y && squareSwapModel.getIOrigin() == x) {
+                squareSwapModel.clearOrigin();
+                redraw();
+            } else if (energy.canSwapSquares()) {
                 squareSwapModel.setOrigin(y, x);
                 redraw();
             } else {
