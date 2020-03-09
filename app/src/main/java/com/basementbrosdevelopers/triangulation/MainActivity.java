@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
+import static com.basementbrosdevelopers.triangulation.DialogsKt.showCredits;
 import static com.basementbrosdevelopers.triangulation.DialogsKt.showGridlockedDialog;
 import static com.basementbrosdevelopers.triangulation.DialogsKt.showInstructions;
 import static com.basementbrosdevelopers.triangulation.DialogsKt.showNotEnoughEnergyDialog;
@@ -122,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.give_energy) {
             energy.gainEnergy();
             redraw();
+            return true;
+        }
+        if (item.getItemId() == R.id.credits) {
+            currentDialog = showCredits(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

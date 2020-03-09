@@ -33,3 +33,13 @@ fun showInstructions(context: Context): DialogInterface {
     currentDialog.show()
     return currentDialog
 }
+
+fun showCredits(context: Context): DialogInterface {
+    val currentDialog = AlertDialog.Builder(context)
+            .setTitle("Credits")
+            .setMessage("Art: Lizzy Ruzicka\nProgramming: Chip Thien, David Thien")
+            .setPositiveButton("Ok", null)
+            .create()
+    currentDialog.show()
+    return currentDialog
+}
