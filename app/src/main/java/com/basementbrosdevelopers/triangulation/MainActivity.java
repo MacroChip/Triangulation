@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.basementbrosdevelopers.triangulation.scoreboard.ScoreboardActivity;
 import com.basementbrosdevelopers.triangulation.squareswapping.SelectedTriangleShrinkAnimation;
 import com.google.gson.Gson;
 
@@ -127,6 +128,10 @@ public class MainActivity extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.credits) {
             currentDialog = showCredits(this);
+            return true;
+        }
+        if (item.getItemId() == R.id.scoreboard) {
+            startActivity(ScoreboardActivity.intent(this));
             return true;
         }
         return super.onOptionsItemSelected(item);
