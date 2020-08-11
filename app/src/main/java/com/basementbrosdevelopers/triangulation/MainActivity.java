@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.scoreboard) {
-            startActivity(ScoreboardActivity.intent(this));
+            startActivity(ScoreboardActivity.intent(this, scoreboard));
             return true;
         }
         return super.onOptionsItemSelected(item);

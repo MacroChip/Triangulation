@@ -1,22 +1,28 @@
 package com.basementbrosdevelopers.triangulation;
 
-public class Scoreboard {
+import java.io.Serializable;
+
+public class Scoreboard implements Serializable {
 
     public static final String SERIALIZATION_KEY = "scoreboard";
     private int currentPoints;
     private int hiScore;
-    private int lastScore;
 
     public void add() {
         currentPoints++;
     }
 
     public void end() {
-        lastScore = currentPoints;
         if (currentPoints > hiScore) {
             hiScore = currentPoints;
         }
     }
 
+    public int getCurrentPoints() {
+        return currentPoints;
+    }
 
+    public int getHiScore() {
+        return hiScore;
+    }
 }
